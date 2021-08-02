@@ -3,7 +3,7 @@ import React from 'react';
 function App(): React.ReactElement {
 	return (
 		<div className="App">
-			<h1>Pad</h1>
+			<img src='/res/full_logo.png' style={{width: '50%'}}/>
 		</div>
 	);
 }
