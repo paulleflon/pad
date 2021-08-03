@@ -1,12 +1,13 @@
 import React from 'react';
 import '../style/Pad.sass';
 import PadProps from '../types/PadProps';
+import PadState from '../types/PadState';
 import PadButton from './PadButton';
 
-class Pad extends React.Component<PadProps> {
+class Pad extends React.Component<PadProps, PadState> {
 	constructor(props: PadProps) {
 		super(props);
-
+		this.state = { pressed: [] };
 	}
 
 	render(): React.ReactNode {
