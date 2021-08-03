@@ -6,6 +6,9 @@ interface PadButtonProps {
 	 * Whether the button is currently being pressed.
 	 */
 	active: boolean;
+	/**
+	 * Color properties of the PadButton.
+	 */
 	colors: {
 		/**
 		 * The color to display when the button is active.
