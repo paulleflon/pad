@@ -2,6 +2,11 @@
  * Props of a PadButton component.
  */
 interface PadButtonProps {
+	/**
+	 * Whether the button is currently being pressed.
+	 */
+	active: boolean;
+	
 	colors: {
 		/**
 		 * The color to display when the button is active.
