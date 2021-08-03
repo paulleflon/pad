@@ -2,9 +2,16 @@
  * Props of a PadButton component.
  */
 interface PadButtonProps {
+	/**
+	 * Whether the PadButton is currently being pressed.
+	 */
+	active: boolean;
+	/**
+	 * Color properties of the PadButton.
+	 */
 	colors: {
 		/**
-		 * The color to display when the button is active.
+		 * The color to display when the PadButton is active.
 		 * @default '#fffc33'
 		 */
 		active: string;
@@ -14,13 +21,17 @@ interface PadButtonProps {
 		 */
 		flat: boolean;
 		/**
-		 * The color to display when the button is not active.
+		 * The color to display when the PadButton is not active.
 		 * @default '#aaaaaa'
 		 */
 		resting: string;
 	};
 	/**
-	 * A text to display on the button.
+	 * The code of the key that triggers this PadButton.
+	 */
+	code: string;
+	/**
+	 * A text to display on the PadButton.
 	 */
 	label?: string;
 }

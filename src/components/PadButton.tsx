@@ -11,8 +11,11 @@ class PadButton extends React.Component<PadButtonProps> {
 	}
 
 	render(): React.ReactNode {
+		const style = {
+			backgroundColor: this.props.colors[this.props.active ? 'active' : 'resting']
+		};
 		return (
-			<div className='pad-button'>
+			<div className='pad-button' style={style}>
 				{this.props.label && <div className='pad-button-label'>{this.props.label}</div>}
 			</div>
 		);
