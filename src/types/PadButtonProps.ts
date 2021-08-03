@@ -22,7 +22,7 @@ interface PadButtonProps {
 	/**
 	 * The code of the key that triggers this pad button.
 	 */
-	keyCode: number;
+	code: string;
 
 	/**
 	 * A text to display on the button.
