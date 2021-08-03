@@ -22,7 +22,7 @@ class Pad extends React.Component<PadProps, PadState> {
 			const cells = [];
 			for (let j = 0; j < this.props.columns; j++) {
 				const k = defaultKeyCodes[i][j];
-				cells.push(<PadButton code={k} key={k} active={this.state.pressed.includes(k)} />);
+				cells.push(<PadButton code={k} key={k} active={this.state.pressed.includes(k)} alt={this.state.pressed.includes('AltRight')} />);
 			}
 			rows.push(<div className='pad-button-row'>{cells}</div>);
 		}
