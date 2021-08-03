@@ -14,9 +14,14 @@ class PadButton extends React.Component<PadButtonProps> {
 		const style = {
 			backgroundColor: this.props.colors[this.props.active ? 'active' : 'resting']
 		};
+		let label;
+		if (this.props.label)
+			label = this.props.label;
+		if (this.props.alt)
+			label = this.props.code;
 		return (
 			<div className='pad-button' style={style}>
-				{this.props.label && <div className='pad-button-label'>{this.props.label}</div>}
+				{<div className='pad-button-label'>{label}</div>}
 			</div>
 		);
 	}
