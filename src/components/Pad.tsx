@@ -8,6 +8,12 @@ class Pad extends React.Component<PadProps, PadState> {
 	constructor(props: PadProps) {
 		super(props);
 		this.state = { pressed: [] };
+		window.addEventListener('keydown', (e: KeyboardEvent) => {
+			this.setState({ pressed: [...this.state.pressed, e.code] });
+		});
+		window.addEventListener('keyup', (e: KeyboardEvent) => {
+			this.setState({ pressed: this.state.pressed.filter(k => k !== e.code) });
+		});
 	}
 
 	render(): React.ReactNode {
@@ -16,7 +22,7 @@ class Pad extends React.Component<PadProps, PadState> {
 			const cells = [];
 			for (let j = 0; j < this.props.columns; j++) {
 				const k = defaultKeyCodes[i][j];
-				cells.push(<PadButton code={k} key={k} />);
+				cells.push(<PadButton code={k} key={k} active={this.state.pressed.includes(k)} />);
 			}
 			rows.push(<div className='pad-button-row'>{cells}</div>);
 		}
@@ -39,9 +45,9 @@ export default Pad;
  * Default key codes for PadButtons in a 4x4 Pad.
  */
 const defaultKeyCodes = [
-	[49, 50, 51, 52],
-	[81, 87, 69, 82],
-	[65, 83, 68, 70],
-	[90, 88, 67, 86]
+	['Digit1', 'Digit2', 'Digit3', 'Digit4'],
+	['KeyQ', 'KeyW', 'KeyE', 'KeyR'],
+	['KeyA', 'KeyS', 'KeyD', 'KeyF'],
+	['KeyZ', 'KeyX', 'KeyC', 'KeyV'],
 ];
 // Temporary
