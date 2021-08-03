@@ -9,7 +9,7 @@ class PadButton extends React.Component<PadButtonProps> {
 	constructor(props: PadButtonProps) {
 		super(props);
 	}
-	
+
 	render(): React.ReactNode {
 		return (
 			<div className='pad-button'>
@@ -23,7 +23,7 @@ class PadButton extends React.Component<PadButtonProps> {
 			active: '#fffc33',
 			flat: false,
 			resting: '#aaaaaa'
-		},
+		}
 	};
 }
 
