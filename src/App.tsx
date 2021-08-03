@@ -1,9 +1,10 @@
 import React from 'react';
+import Pad from './components/Pad';
 
 function App(): React.ReactElement {
 	return (
 		<div className="App">
-			<img src='/res/full_logo.png' style={{width: '50%'}}/>
+			<Pad />
 		</div>
 	);
 }
