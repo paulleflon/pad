@@ -6,7 +6,6 @@ interface PadButtonProps {
 	 * Whether the button is currently being pressed.
 	 */
 	active: boolean;
-	
 	colors: {
 		/**
 		 * The color to display when the button is active.
@@ -28,7 +27,6 @@ interface PadButtonProps {
 	 * The code of the key that triggers this pad button.
 	 */
 	code: string;
-
 	/**
 	 * A text to display on the button.
 	 */
