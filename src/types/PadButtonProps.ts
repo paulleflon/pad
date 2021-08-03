@@ -20,6 +20,11 @@ interface PadButtonProps {
 		resting: string;
 	};
 	/**
+	 * The code of the key that triggers this pad button.
+	 */
+	keyCode: number;
+
+	/**
 	 * A text to display on the button.
 	 */
 	label?: string;

@@ -14,7 +14,8 @@ class Pad extends React.Component<PadProps> {
 		for (let i = 0; i < this.props.rows; i++) {
 			const cells = [];
 			for (let j = 0; j < this.props.columns; j++) {
-				cells.push(<PadButton />);
+				const k = defaultKeyCodes[i][j];
+				cells.push(<PadButton keyCode={k} key={k}  />);
 			}
 			rows.push(<div className='pad-button-row'>{cells}</div>);
 		}
@@ -32,3 +33,14 @@ class Pad extends React.Component<PadProps> {
 }
 
 export default Pad;
+
+/**
+ * Default key codes for PadButtons in a 4x4 Pad.
+ */
+const defaultKeyCodes = [
+	[49, 50, 51, 52],
+	[81, 87, 69, 82],
+	[65, 83, 68, 70],
+	[90, 88, 67, 86]
+];
+// Temporary
