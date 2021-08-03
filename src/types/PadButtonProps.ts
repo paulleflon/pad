@@ -7,6 +7,10 @@ interface PadButtonProps {
 	 */
 	active: boolean;
 	/**
+	 * Whether the AltRight key is pressed, which displays the code of the PadButton.
+	 */
+	alt: boolean;
+	/**
 	 * Color properties of the PadButton.
 	 */
 	colors: {
