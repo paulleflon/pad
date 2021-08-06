@@ -13,10 +13,6 @@ interface PadButtonProps extends ButtonProperties {
 	 */
 	alt: boolean;
 	/**
-	 * The code of the key that triggers this PadButton.
-	 */
-	code: string;
-	/**
 	 * The function to call when the PadButton starts being pressed.
 	 */
 	onMouseDown: (k: string) => void;

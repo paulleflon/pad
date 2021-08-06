@@ -3,6 +3,10 @@
  */
 interface ButtonProperties {
 	/**
+	 * The code of the key that triggers this button.
+	 */
+	code: string;
+	/**
 	 * Color properties of the button component.
 	 */
 	colors: {
