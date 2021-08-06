@@ -8,12 +8,22 @@ class Pad extends React.Component<PadProps, PadState> {
 	constructor(props: PadProps) {
 		super(props);
 		this.state = { pressed: [] };
-		window.addEventListener('keydown', (e: KeyboardEvent) => {
-			this.setState({ pressed: [...this.state.pressed, e.code] });
-		});
-		window.addEventListener('keyup', (e: KeyboardEvent) => {
-			this.setState({ pressed: this.state.pressed.filter(k => k !== e.code) });
-		});
+		window.addEventListener('keydown', (e: KeyboardEvent) => this.addPressed(e.code));
+		window.addEventListener('keyup', (e: KeyboardEvent) => this.removePressed(e.code));
+	}
+
+	/**
+	 * Adds a key to the list of pressed keys in the Pad's state.
+	 */
+	addPressed(key: string): void {
+		this.setState({ pressed: [...this.state.pressed, key] });
+	}
+
+	/**
+	 * Removes a key from the list of pressed keys in the Pad's state.
+	 */
+	removePressed(key: string): void {
+		this.setState({ pressed: this.state.pressed.filter(k => k !== key) });
 	}
 
 	render(): React.ReactNode {
@@ -22,7 +32,16 @@ class Pad extends React.Component<PadProps, PadState> {
 			const cells = [];
 			for (let j = 0; j < this.props.columns; j++) {
 				const k = defaultKeyCodes[i][j];
-				cells.push(<PadButton code={k} key={k} active={this.state.pressed.includes(k)} alt={this.state.pressed.includes('AltRight')} />);
+				cells.push(
+					<PadButton
+						active={this.state.pressed.includes(k)}
+						alt={this.state.pressed.includes('AltRight')}
+						code={k}
+						key={k}
+						onMouseDown={k => this.addPressed(k)}
+						onMouseUp={k => this.removePressed(k)}
+					/>
+				);
 			}
 			rows.push(<div className='pad-button-row'>{cells}</div>);
 		}
