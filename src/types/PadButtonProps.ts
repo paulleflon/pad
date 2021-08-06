@@ -38,6 +38,14 @@ interface PadButtonProps {
 	 * A text to display on the PadButton.
 	 */
 	label?: string;
+	/**
+	 * The function to call when the PadButton starts being pressed.
+	 */
+	onMouseDown: (k: string) => void;
+	/**
+ 	 * The function to call when the PadButton stops being pressed.
+ 	 */
+	onMouseUp: (k: string) => void;
 }
 
 export default PadButtonProps;
