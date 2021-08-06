@@ -8,12 +8,22 @@ class Pad extends React.Component<PadProps, PadState> {
 	constructor(props: PadProps) {
 		super(props);
 		this.state = { pressed: [] };
-		window.addEventListener('keydown', (e: KeyboardEvent) => {
-			this.setState({ pressed: [...this.state.pressed, e.code] });
-		});
-		window.addEventListener('keyup', (e: KeyboardEvent) => {
-			this.setState({ pressed: this.state.pressed.filter(k => k !== e.code) });
-		});
+		window.addEventListener('keydown', (e: KeyboardEvent) => this.addPressed(e.code));
+		window.addEventListener('keyup', (e: KeyboardEvent) => this.removePressed(e.code));
+	}
+
+	/**
+	 * Adds a key to the list of pressed keys in the Pad's state.
+	 */
+	addPressed(key: string): void {
+		this.setState({ pressed: [...this.state.pressed, key] });
+	}
+
+	/**
+	 * Removes a key from the list of pressed keys in the Pad's state.
+	 */
+	removePressed(key: string): void {
+		this.setState({ pressed: this.state.pressed.filter(k => k !== key) });
 	}
 
 	render(): React.ReactNode {
