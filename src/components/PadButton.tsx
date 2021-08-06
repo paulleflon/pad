@@ -20,7 +20,12 @@ class PadButton extends React.Component<PadButtonProps> {
 		if (this.props.alt)
 			label = this.props.code;
 		return (
-			<div className='pad-button' style={style}>
+			<div
+				className='pad-button'
+				style={style}
+				onMouseDown={_e => this.props.onMouseDown(this.props.code)}
+				onMouseUp={_e => this.props.onMouseUp(this.props.code)}
+			>
 				{<div className='pad-button-label'>{label}</div>}
 			</div>
 		);
