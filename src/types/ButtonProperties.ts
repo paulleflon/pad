@@ -27,6 +27,10 @@ interface ButtonProperties {
 	 * A text to display on the button component.
 	 */
 	label: string;
+	/**
+	 * The position of this button on the Pad.
+	 */
+	position: number[];
 }
 
 export default ButtonProperties;

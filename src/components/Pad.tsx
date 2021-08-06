@@ -60,7 +60,8 @@ class Pad extends React.Component<PadProps, PadState> {
 						resting: '#aaaaaa'
 					},
 					label: '',
-					code: defaultKeyCodes[i][j]
+					code: defaultKeyCodes[i][j],
+					position: [i, j]
 				};
 				buttons[i].push(btn);
 			}
