@@ -12,6 +12,11 @@ interface PadState {
 	 * Array of pressed keys' codes.
 	 */
 	pressed: string[];
+
+	/**
+	 * The coords of the currently selected button to configurate.
+	 */
+	selectedButton?: [number, number];
 }
 
 export default PadState;
