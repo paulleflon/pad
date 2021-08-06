@@ -38,6 +38,7 @@ class Pad extends React.Component<PadProps, PadState> {
 						alt={this.state.pressed.includes('AltRight')}
 						code={k}
 						key={k}
+						label='' // temp
 						onMouseDown={k => this.addPressed(k)}
 						onMouseUp={k => this.removePressed(k)}
 					/>

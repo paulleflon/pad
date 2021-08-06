@@ -1,7 +1,9 @@
+import ButtonProperties from './ButtonProperties';
+
 /**
  * Props of a PadButton component.
  */
-interface PadButtonProps {
+interface PadButtonProps extends ButtonProperties {
 	/**
 	 * Whether the PadButton is currently being pressed.
 	 */
@@ -11,40 +13,16 @@ interface PadButtonProps {
 	 */
 	alt: boolean;
 	/**
-	 * Color properties of the PadButton.
-	 */
-	colors: {
-		/**
-		 * The color to display when the PadButton is active.
-		 * @default '#fffc33'
-		 */
-		active: string;
-		/**
-		 * When set to true, the colors will not have a slight radial gradient effect to smooth it.
-		 * @default false
-		 */
-		flat: boolean;
-		/**
-		 * The color to display when the PadButton is not active.
-		 * @default '#aaaaaa'
-		 */
-		resting: string;
-	};
-	/**
 	 * The code of the key that triggers this PadButton.
 	 */
 	code: string;
-	/**
-	 * A text to display on the PadButton.
-	 */
-	label?: string;
 	/**
 	 * The function to call when the PadButton starts being pressed.
 	 */
 	onMouseDown: (k: string) => void;
 	/**
- 	 * The function to call when the PadButton stops being pressed.
- 	 */
+	 * The function to call when the PadButton stops being pressed.
+	 */
 	onMouseUp: (k: string) => void;
 }
 
