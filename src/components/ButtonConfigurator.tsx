@@ -35,11 +35,13 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			} else {
 				changes[elm.name] = elm.value;
 			}
+			console.log('zebi');
 			this.props.updater!(changes);
 		};
 		for (const [name, ref] of Object.entries(this.#refs)) {
-			if (this.listening[name])
+			if (!ref.current || this.listening[name])
 				continue;
+			console.log(`${name} registered`);
 			this.listening[name] = true;
 			ref.current?.addEventListener('change', () => onChange(ref.current!));
 			if (ref.current?.type === 'text')
