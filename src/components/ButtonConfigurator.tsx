@@ -1,4 +1,5 @@
 import React from 'react';
+import '../style/ButtonConfigurator.sass';
 import ButtonConfiguratorProps from '../types/ButtonConfiguratorProps';
 
 class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
@@ -6,7 +7,10 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	 * Refs to the inputs of the configurator.
 	 */
 	#refs: Record<string, React.RefObject<HTMLInputElement>>;
-
+	/**
+	 * Whether each input has got its event listener.
+	 */
+	listening: Record<string, boolean>;
 	constructor(props: ButtonConfiguratorProps) {
 		super(props);
 		this.#refs = {
@@ -14,9 +18,14 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			label: React.createRef<HTMLInputElement>(),
 			restColor: React.createRef<HTMLInputElement>()
 		};
+		this.listening = {
+			activeColor: false,
+			label: false,
+			restColor: false
+		};
 	}
 
-	componentDidMount(): void {
+	componentDidUpdate(): void {
 		const onChange = (elm: HTMLInputElement) => {
 			const changes: Record<string, any> = {};
 			if (elm.name.includes('.')) {
@@ -28,7 +37,10 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			}
 			this.props.updater!(changes);
 		};
-		for (const ref of Object.values(this.#refs)) {
+		for (const [name, ref] of Object.entries(this.#refs)) {
+			if (this.listening[name])
+				continue;
+			this.listening[name] = true;
 			ref.current?.addEventListener('change', () => onChange(ref.current!));
 			if (ref.current?.type === 'text')
 				ref.current?.addEventListener('keyup', () => onChange(ref.current!));
@@ -36,10 +48,29 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	}
 
 	render(): React.ReactNode {
+		if (!this.props.button) {
+			return (
+				<div className='button-configurator idle'>
+					No button selected.
+				</div>
+			);
+		}
+		const btnName = `${this.props.button.position[0] + 1}:${this.props.button.position[1] + 1}`;
 		return (
 			<div className='button-configurator'>
-				<input type='color' defaultValue={this.props.button?.colors.active} ref={this.#refs.activeColor} name='colors.active' />
-				<input type='color' ref={this.#refs.restColor} defaultValue={this.props.button?.colors.resting} name='colors.resting' />
+				<div className='button-configurator-title'>
+					Configuring button {btnName}
+				</div>
+				<div className='button-configurator-subtitle'>Colors</div>
+				<div className='button-configurator-row'>
+					<input type='color' defaultValue={this.props.button.colors.active} ref={this.#refs.activeColor} name='colors.active' />
+					<label htmlFor='colors.active'>Active  color</label>
+				</div>
+				<div className='button-configurator-row'>
+					<input type='color' defaultValue={this.props.button.colors.resting} ref={this.#refs.restingColor} name='colors.resting' />
+					<label htmlFor='colors.resting'>Resting color</label>
+				</div>
+				<div className='button-configurator-subtitle'>Label</div>
 				<input type='text' ref={this.#refs.label} name='label' />
 			</div>
 		);
