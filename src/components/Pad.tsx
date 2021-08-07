@@ -36,11 +36,11 @@ class Pad extends React.Component<PadProps, PadState> {
 	 * @param x The x position of the button.
 	 * @param y The y position of the button.
 	 */
-	selectButton(x: number, y: number) {
+	selectButton(y: number, x: number) {
 		this.setState({ selectedButton: [y, x] });
 	}
 
-	updateButtonProperties(x: number, y: number, properties: Partial<ButtonProperties>): void {
+	updateButtonProperties(y: number, x: number, properties: Partial<ButtonProperties>): void {
 		const updated = { ...this.state.buttonProperties[y][x], ...properties };
 		const arr = this.state.buttonProperties;
 		arr[y][x] = updated;
@@ -89,7 +89,7 @@ class Pad extends React.Component<PadProps, PadState> {
 					alt: this.state.pressedButtons.includes('AltRight'),
 					onMouseDown: (k: string) => this.addPressed(k),
 					onMouseUp: (k: string) => this.removePressed(k),
-					select: (x: number, y: number) => this.selectButton(x, y)
+					select: (y: number, x: number) => this.selectButton(y, x)
 				};
 				const isSelected = this.state.selectedButton && this.state.selectedButton[0] === j && this.state.selectedButton[1] === i;
 				cells.push(
