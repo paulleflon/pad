@@ -8,9 +8,14 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	 */
 	#refs: Record<string, React.RefObject<HTMLInputElement>>;
 	/**
+	 * The coos of the last selected button.
+	 */
+	lastSelectedPos?: number[]
+	/**
 	 * Whether each input has got its event listener.
 	 */
 	listening: Record<string, boolean>;
+
 	constructor(props: ButtonConfiguratorProps) {
 		super(props);
 		this.#refs = {
@@ -26,6 +31,8 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	}
 
 	componentDidUpdate(): void {
+		// --Change events registering--
+		// We run this at each update to make sure each ref has had its listener added.
 		const onChange = (elm: HTMLInputElement) => {
 			const changes: Record<string, any> = {};
 			if (elm.name.includes('.')) {
@@ -44,6 +51,28 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			ref.current?.addEventListener('change', () => onChange(ref.current!));
 			if (ref.current?.type === 'text')
 				ref.current?.addEventListener('keyup', () => onChange(ref.current!));
+		}
+		// --Input values update--
+		// This condition makes it so that the input values will update only if there is a button in the configurator's props,
+		// and if it is the first button to be selected or if this selected button is different from the previous one.
+		if (
+			this.props.button
+			&&
+			(!this.lastSelectedPos
+				|| (
+					this.lastSelectedPos[0] !== this.props.button.position[0]
+					||  this.lastSelectedPos[1] !== this.props.button.position[1]
+				)
+			)
+		) {
+			// Should find a way to automate this value updates instead of manually updating each of them.
+			if (this.#refs.activeColor.current)
+				this.#refs.activeColor.current.value = this.props.button.colors.active;
+			if (this.#refs.restingColor.current)
+				this.#refs.restingColor.current.value = this.props.button.colors.resting;
+			if (this.#refs.label.current)
+				this.#refs.label.current.value = this.props.button.label;
+			this.lastSelectedPos = this.props.button.position;
 		}
 	}
 
