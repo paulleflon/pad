@@ -12,9 +12,9 @@ class Pad extends React.Component<PadProps, PadState> {
 		super(props);
 		this.state = {
 			pressedButtons: [],
-			buttonProperties: this.generateDefaultButtons(),
+			buttonProperties: this.generateDefaultButtons()
 		};
-		window.addEventListener('keydown', (e: KeyboardEvent) => this.addPressed(e.code));
+		window.addEventListener('keydown', (e: KeyboardEvent) => e.shiftKey || this.addPressed(e.code));
 		window.addEventListener('keyup', (e: KeyboardEvent) => this.removePressed(e.code));
 	}
 
@@ -30,6 +30,14 @@ class Pad extends React.Component<PadProps, PadState> {
 	 */
 	removePressed(key: string): void {
 		this.setState({ pressedButtons: this.state.pressedButtons.filter(k => k !== key) });
+	}
+	/**
+	 * Selects a button to configurate.
+	 * @param x The x position of the button.
+	 * @param y The y position of the button.
+	 */
+	selectButton(x: number, y: number) {
+		this.setState({ selectedButton: [y, x] });
 	}
 
 	updateButtonProperties(x: number, y: number, properties: Partial<ButtonProperties>): void {
@@ -80,11 +88,14 @@ class Pad extends React.Component<PadProps, PadState> {
 					active: this.state.pressedButtons.includes(btn.code),
 					alt: this.state.pressedButtons.includes('AltRight'),
 					onMouseDown: (k: string) => this.addPressed(k),
-					onMouseUp: (k: string) => this.removePressed(k)
+					onMouseUp: (k: string) => this.removePressed(k),
+					select: (x: number, y: number) => this.selectButton(x, y)
 				};
+				const isSelected = this.state.selectedButton && this.state.selectedButton[0] === j && this.state.selectedButton[1] === i;
 				cells.push(
 					<PadButton
 						{...props}
+						className={isSelected ? 'selected' : ''}
 						key={btn.code}
 					/>
 				);

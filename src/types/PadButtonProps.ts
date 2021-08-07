@@ -13,6 +13,10 @@ interface PadButtonProps extends ButtonProperties {
 	 */
 	alt: boolean;
 	/**
+	 * An extension to the default className of a PadButton.
+	 */
+	className?: string;
+	/**
 	 * The function to call when the PadButton starts being pressed.
 	 */
 	onMouseDown: (k: string) => void;
@@ -20,6 +24,10 @@ interface PadButtonProps extends ButtonProperties {
 	 * The function to call when the PadButton stops being pressed.
 	 */
 	onMouseUp: (k: string) => void;
+	/**
+	 * The function to call to select this button in the configurator.
+	 */
+	select: (x: number, y: number) => void;
 }
 
 export default PadButtonProps;
