@@ -36,14 +36,14 @@ class Pad extends React.Component<PadProps, PadState> {
 	 * @param x The x position of the button.
 	 * @param y The y position of the button.
 	 */
-	selectButton(y: number, x: number) {
-		this.setState({ selectedButton: [y, x] });
+	selectButton(coos: number[]) {
+		this.setState({ selectedButton: coos });
 	}
 
-	updateButtonProperties(y: number, x: number, properties: Partial<ButtonProperties>): void {
-		const updated = { ...this.state.buttonProperties[y][x], ...properties };
+	updateButtonProperties(coos: number[], properties: Partial<ButtonProperties>): void {
+		const updated = { ...this.state.buttonProperties[coos[0]][coos[1]], ...properties };
 		const arr = this.state.buttonProperties;
-		arr[y][x] = updated;
+		arr[coos[0]][coos[1]] = updated;
 		this.setState({ buttonProperties: arr });
 	}
 
@@ -89,9 +89,9 @@ class Pad extends React.Component<PadProps, PadState> {
 					alt: this.state.pressedButtons.includes('AltRight'),
 					onMouseDown: (k: string) => this.addPressed(k),
 					onMouseUp: (k: string) => this.removePressed(k),
-					select: (y: number, x: number) => this.selectButton(y, x)
+					select: (coos: number[]) => this.selectButton(coos)
 				};
-				const isSelected = this.state.selectedButton && this.state.selectedButton[0] === j && this.state.selectedButton[1] === i;
+				const isSelected = this.state.selectedButton && this.state.selectedButton[0] === i && this.state.selectedButton[1] === j;
 				cells.push(
 					<PadButton
 						{...props}
@@ -104,10 +104,10 @@ class Pad extends React.Component<PadProps, PadState> {
 		}
 		let updater;
 		if (this.state.selectedButton)
-			updater = (p: Partial<ButtonProperties>) => this.updateButtonProperties(this.state.selectedButton![0], this.state.selectedButton![1], p);
+			updater = (p: Partial<ButtonProperties>) => this.updateButtonProperties(this.state.selectedButton!, p);
 		let button;
 		if (this.state.selectedButton) {
-			const [x, y] = this.state.selectedButton;
+			const [y, x] = this.state.selectedButton;
 			button = this.state.buttonProperties[y][x];
 		}
 		return (

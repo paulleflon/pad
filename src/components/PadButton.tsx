@@ -10,7 +10,7 @@ class PadButton extends React.Component<PadButtonProps> {
 		super(props);
 		window.addEventListener('keydown', (e: KeyboardEvent) => {
 			if (e.shiftKey && e.code === this.props.code)
-				this.props.select(this.props.position[0], this.props.position[1]);
+				this.props.select(this.props.position);
 		});
 	}
 

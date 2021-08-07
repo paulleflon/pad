@@ -16,7 +16,7 @@ interface PadState {
 	/**
 	 * The coords of the currently selected button to configurate.
 	 */
-	selectedButton?: [number, number];
+	selectedButton?: number[];
 }
 
 export default PadState;

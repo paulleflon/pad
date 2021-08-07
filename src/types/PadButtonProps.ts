@@ -27,7 +27,7 @@ interface PadButtonProps extends ButtonProperties {
 	/**
 	 * The function to call to select this button in the configurator.
 	 */
-	select: (x: number, y: number) => void;
+	select: (coos: number[]) => void;
 }
 
 export default PadButtonProps;
