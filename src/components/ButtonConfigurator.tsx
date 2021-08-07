@@ -61,7 +61,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			(!this.lastSelectedPos
 				|| (
 					this.lastSelectedPos[0] !== this.props.button.position[0]
-					||  this.lastSelectedPos[1] !== this.props.button.position[1]
+					|| this.lastSelectedPos[1] !== this.props.button.position[1]
 				)
 			)
 		) {
@@ -94,8 +94,6 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 				<div className='button-configurator-row'>
 					<input type='color' defaultValue={this.props.button.colors.active} ref={this.#refs.activeColor} name='colors.active' />
 					<label htmlFor='colors.active'>Active  color</label>
-				</div>
-				<div className='button-configurator-row'>
 					<input type='color' defaultValue={this.props.button.colors.resting} ref={this.#refs.restingColor} name='colors.resting' />
 					<label htmlFor='colors.resting'>Resting color</label>
 				</div>

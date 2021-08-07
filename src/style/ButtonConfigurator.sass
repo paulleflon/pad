@@ -2,21 +2,24 @@
 	position: fixed
 	top: 0
 	right: 0
-	background: #222222
-	height: 100%
+	padding: 0 10px
 	width: 350px
+	height: 100%
+	background: #222222
 	font-family: 'Ubuntu'
+	text-align: center
 	color: #ffffff
-	padding: 0 5px
 	.button-configurator-title
 		padding: 10px 0
-		text-align: center
 		font-size: 18pt
 	.button-configurator-subtitle
 		padding: 10px 0
-		text-align: center
 		font-size: 14pt
 	.button-configurator-row
+		flex-direction: row
+		align-items: center
+		justify-content: space-between
+		display: flex
 		margin: 10px 0
-		label
-			margin-left: 5px
+	input[type='color']
+		cursor: pointer
