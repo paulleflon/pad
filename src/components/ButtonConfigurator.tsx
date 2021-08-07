@@ -16,7 +16,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 		this.#refs = {
 			activeColor: React.createRef<HTMLInputElement>(),
 			label: React.createRef<HTMLInputElement>(),
-			restColor: React.createRef<HTMLInputElement>()
+			restingColor: React.createRef<HTMLInputElement>()
 		};
 		this.listening = {
 			activeColor: false,
@@ -26,6 +26,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	}
 
 	componentDidUpdate(): void {
+		console.log('up');
 		const onChange = (elm: HTMLInputElement) => {
 			const changes: Record<string, any> = {};
 			if (elm.name.includes('.')) {
