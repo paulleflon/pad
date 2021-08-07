@@ -8,6 +8,10 @@ import PadButtonProps from '../types/PadButtonProps';
 class PadButton extends React.Component<PadButtonProps> {
 	constructor(props: PadButtonProps) {
 		super(props);
+		window.addEventListener('keydown', (e: KeyboardEvent) => {
+			if (e.shiftKey && e.code === this.props.code)
+				this.props.select(this.props.position);
+		});
 	}
 
 	render(): React.ReactNode {
@@ -21,10 +25,10 @@ class PadButton extends React.Component<PadButtonProps> {
 			label = this.props.code;
 		return (
 			<div
-				className='pad-button'
+				className={'pad-button ' + this.props.className}
 				style={style}
-				onMouseDown={_e => this.props.onMouseDown(this.props.code)}
-				onMouseUp={_e => this.props.onMouseUp(this.props.code)}
+				onMouseDown={() => this.props.onMouseDown(this.props.code)}
+				onMouseUp={() => this.props.onMouseUp(this.props.code)}
 			>
 				{<div className='pad-button-label'>{label}</div>}
 			</div>
