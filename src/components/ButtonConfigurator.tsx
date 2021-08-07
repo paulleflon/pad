@@ -34,7 +34,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 		// --Change events registering--
 		// We run this at each update to make sure each ref has had its listener added.
 		const onChange = (elm: HTMLInputElement) => {
-			const changes: Record<string, any> = {};
+			const changes: Record<string, any> = {}; // eslint-disable-line @typescript-eslint/no-explicit-any
 			if (elm.name.includes('.')) {
 				const split = elm.name.split('.');
 				changes[split[0]] = {};
@@ -42,15 +42,16 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			} else {
 				changes[elm.name] = elm.value;
 			}
-			this.props.updater!(changes);
+			if (this.props.updater)
+				this.props.updater(changes);
 		};
 		for (const [name, ref] of Object.entries(this.#refs)) {
 			if (!ref.current || this.listening[name])
 				continue;
 			this.listening[name] = true;
-			ref.current?.addEventListener('change', () => onChange(ref.current!));
-			if (ref.current?.type === 'text')
-				ref.current?.addEventListener('keyup', () => onChange(ref.current!));
+			ref.current.addEventListener('change', () => onChange(ref.current as HTMLInputElement));
+			if (ref.current.type === 'text')
+				ref.current.addEventListener('keyup', () => onChange(ref.current as HTMLInputElement));
 		}
 		// --Input values update--
 		// This condition makes it so that the input values will update only if there is a button in the configurator's props,

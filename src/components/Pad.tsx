@@ -36,7 +36,7 @@ class Pad extends React.Component<PadProps, PadState> {
 	 * @param x The x position of the button.
 	 * @param y The y position of the button.
 	 */
-	selectButton(coos: number[]) {
+	selectButton(coos: number[]): void {
 		this.setState({ selectedButton: coos });
 	}
 
@@ -104,7 +104,7 @@ class Pad extends React.Component<PadProps, PadState> {
 		}
 		let updater;
 		if (this.state.selectedButton)
-			updater = (p: Partial<ButtonProperties>) => this.updateButtonProperties(this.state.selectedButton!, p);
+			updater = (p: Partial<ButtonProperties>) => this.updateButtonProperties(this.state.selectedButton as number[], p);
 		let button;
 		if (this.state.selectedButton) {
 			const [y, x] = this.state.selectedButton;
