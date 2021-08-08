@@ -21,7 +21,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 		this.#refs = {
 			activeColor: React.createRef<HTMLInputElement>(),
 			label: React.createRef<HTMLInputElement>(),
-			restingColor: React.createRef<HTMLInputElement>()
+			idleColor: React.createRef<HTMLInputElement>()
 		};
 		this.listening = {
 			activeColor: false,
@@ -68,9 +68,9 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 		) {
 			// Should find a way to automate this value updates instead of manually updating each of them.
 			if (this.#refs.activeColor.current)
-				this.#refs.activeColor.current.value = this.props.button.colors.active;
-			if (this.#refs.restingColor.current)
-				this.#refs.restingColor.current.value = this.props.button.colors.resting;
+				this.#refs.activeColor.current.value = this.props.button.activeColor;
+			if (this.#refs.idleColor.current)
+				this.#refs.idleColor.current.value = this.props.button.idleColor;
 			if (this.#refs.label.current)
 				this.#refs.label.current.value = this.props.button.label;
 			this.lastSelectedPos = this.props.button.position;
@@ -93,10 +93,10 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 				</div>
 				<div className='button-configurator-subtitle'>Colors</div>
 				<div className='button-configurator-row'>
-					<input type='color' defaultValue={this.props.button.colors.active} ref={this.#refs.activeColor} name='colors.active' />
-					<label htmlFor='colors.active'>Active  color</label>
-					<input type='color' defaultValue={this.props.button.colors.resting} ref={this.#refs.restingColor} name='colors.resting' />
-					<label htmlFor='colors.resting'>Resting color</label>
+					<input type='color' ref={this.#refs.activeColor} name='activeColor' />
+					<label htmlFor='activeColor'>Active color</label>
+					<input type='color' ref={this.#refs.idleColor} name='idleColor' />
+					<label htmlFor='idleColor'>Idle color</label>
 				</div>
 				<div className='button-configurator-subtitle'>Label</div>
 				<input type='text' ref={this.#refs.label} name='label' />

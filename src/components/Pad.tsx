@@ -62,11 +62,9 @@ class Pad extends React.Component<PadProps, PadState> {
 			buttons.push([]);
 			for (let j = 0; j < 4; j++) {
 				const btn = {
-					colors: {
-						active: '#fffc33',
-						flat: false,
-						resting: '#aaaaaa'
-					},
+					activeColor: '#fffc33',
+					flatColors: false,
+					idleColor: '#aaaaaa',
 					label: '',
 					code: defaultKeyCodes[i][j],
 					position: [i, j]

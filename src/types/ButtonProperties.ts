@@ -3,26 +3,21 @@
  */
 interface ButtonProperties {
 	/**
+	 * The color to display when the button component is active.
+	 */
+	activeColor: string;
+	/**
 	 * The code of the key that triggers this button.
 	 */
 	code: string;
 	/**
-	 * Color properties of the button component.
+	 * When set to true, the button's colors will not have a slight radial gradient effect.
 	 */
-	colors: {
-		/**
-		 * The color to display when the button component is active.
-		 */
-		active: string;
-		/**
-		 * When set to true, the colors will not have a slight radial gradient effect to smooth it.
-		 */
-		flat: boolean;
-		/**
-		 * The color to display when the button component is not active.
-		 */
-		resting: string;
-	};
+	flatColors: boolean;
+	/**
+	 * The color to display when the button component is not active.
+	 */
+	idleColor: string;
 	/**
 	 * A text to display on the button component.
 	 */
