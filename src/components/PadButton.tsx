@@ -16,7 +16,7 @@ class PadButton extends React.Component<PadButtonProps> {
 
 	render(): React.ReactNode {
 		const style = {
-			backgroundColor: this.props.colors[this.props.active ? 'active' : 'resting']
+			backgroundColor: this.props.active ? this.props.activeColor : this.props.idleColor
 		};
 		let label;
 		if (this.props.label)
@@ -36,11 +36,9 @@ class PadButton extends React.Component<PadButtonProps> {
 	}
 
 	static defaultProps = {
-		colors: {
-			active: '#fffc33',
-			flat: false,
-			resting: '#aaaaaa'
-		}
+		activeColor: '#fffc33',
+		flatColors: false,
+		idleColor: '#aaaaaa'
 	};
 }
 
