@@ -54,9 +54,10 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			if (!ref.current || this.listening[name])
 				continue;
 			this.listening[name] = true;
-			ref.current.addEventListener('change', () => this.onChange(ref.current as HTMLInputElement));
+			const e = ref.current;
+			ref.current.addEventListener('change', () => this.onChange(e));
 			if (ref.current.type === 'text')
-				ref.current.addEventListener('keyup', () => this.onChange(ref.current as HTMLInputElement));
+				ref.current.addEventListener('keyup', () => this.onChange(e));
 		}
 		// --Input values update--
 		// This condition makes it so that the input values will update only if there is a button in the configurator's props,
