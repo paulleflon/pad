@@ -1,6 +1,7 @@
 import React from 'react';
 import '../style/ButtonConfigurator.sass';
 import ButtonConfiguratorProps from '../types/ButtonConfiguratorProps';
+import ButtonProperties from '../types/ButtonProperties';
 
 class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	/**
@@ -15,6 +16,10 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	 * Whether each input has got its event listener.
 	 */
 	listening: Record<string, boolean>;
+	/**
+	 * The event listener for every input of the configurator.
+	 */
+	onChange: (elm: HTMLInputElement) => void;
 
 	constructor(props: ButtonConfiguratorProps) {
 		super(props);
@@ -28,12 +33,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			label: false,
 			restColor: false
 		};
-	}
-
-	componentDidUpdate(): void {
-		// --Change events registering--
-		// We run this at each update to make sure each ref has had its listener added.
-		const onChange = (elm: HTMLInputElement) => {
+		this.onChange = (elm: HTMLInputElement) => {
 			const changes: Record<string, any> = {}; // eslint-disable-line @typescript-eslint/no-explicit-any
 			if (elm.name.includes('.')) {
 				const split = elm.name.split('.');
@@ -45,13 +45,18 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			if (this.props.updater)
 				this.props.updater(changes);
 		};
+	}
+
+	componentDidUpdate(): void {
+		// --Change events registering--
+		// We run this at each update to make sure each ref has had its listener added.
 		for (const [name, ref] of Object.entries(this.#refs)) {
 			if (!ref.current || this.listening[name])
 				continue;
 			this.listening[name] = true;
-			ref.current.addEventListener('change', () => onChange(ref.current as HTMLInputElement));
+			ref.current.addEventListener('change', () => this.onChange(ref.current as HTMLInputElement));
 			if (ref.current.type === 'text')
-				ref.current.addEventListener('keyup', () => onChange(ref.current as HTMLInputElement));
+				ref.current.addEventListener('keyup', () => this.onChange(ref.current as HTMLInputElement));
 		}
 		// --Input values update--
 		// This condition makes it so that the input values will update only if there is a button in the configurator's props,
@@ -66,13 +71,12 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 				)
 			)
 		) {
-			// Should find a way to automate this value updates instead of manually updating each of them.
-			if (this.#refs.activeColor.current)
-				this.#refs.activeColor.current.value = this.props.button.activeColor;
-			if (this.#refs.idleColor.current)
-				this.#refs.idleColor.current.value = this.props.button.idleColor;
-			if (this.#refs.label.current)
-				this.#refs.label.current.value = this.props.button.label;
+			for (const [name, ref] of Object.entries(this.#refs)) {
+				if (!ref.current)
+					continue;
+				// The inputs' names are always a field name of ButtonProperties.
+				ref.current.value = this.props.button[name as keyof ButtonProperties].toString();
+			}
 			this.lastSelectedPos = this.props.button.position;
 		}
 	}
