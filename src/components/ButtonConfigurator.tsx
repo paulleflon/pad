@@ -93,9 +93,9 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 				</div>
 				<div className='button-configurator-subtitle'>Colors</div>
 				<div className='button-configurator-row'>
-					<input type='color' defaultValue={this.props.button.colors.active} ref={this.#refs.activeColor} name='colors.active' />
+					<input type='color' ref={this.#refs.activeColor} name='colors.active' />
 					<label htmlFor='colors.active'>Active  color</label>
-					<input type='color' defaultValue={this.props.button.colors.resting} ref={this.#refs.restingColor} name='colors.resting' />
+					<input type='color' ref={this.#refs.restingColor} name='colors.resting' />
 					<label htmlFor='colors.resting'>Resting color</label>
 				</div>
 				<div className='button-configurator-subtitle'>Label</div>
