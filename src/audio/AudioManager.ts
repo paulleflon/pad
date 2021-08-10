@@ -18,7 +18,6 @@ export default class AudioManager extends AudioContext {
 	 * @param name The name to give to the sound.
 	 */
 	async loadSound(file: File, name: string): Promise<void> {
-		console.log('load');
 		const buffer = await file.arrayBuffer();
 		return new Promise(resolve => {
 			this.decodeAudioData(buffer, decoded => {
@@ -33,7 +32,6 @@ export default class AudioManager extends AudioContext {
 	 * @param name The name of the sound to play.
 	 */
 	playSound(name: string): void {
-		console.log('play');
 		if (!this.sounds.has(name))
 			return;
 		// Type assertion required because we know that it is defined with the check, but TypeScript can't understand it.
