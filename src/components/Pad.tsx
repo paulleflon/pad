@@ -1,4 +1,5 @@
 import React from 'react';
+import AudioManager from '../audio/AudioManager';
 import '../style/Pad.sass';
 import ButtonProperties from '../types/ButtonProperties';
 import PadButtonProps from '../types/PadButtonProps';
@@ -8,8 +9,14 @@ import ButtonConfigurator from './ButtonConfigurator';
 import PadButton from './PadButton';
 
 class Pad extends React.Component<PadProps, PadState> {
+	/**
+	 * The AudioManager bound to this Pad.
+	 */
+	audio: AudioManager;
+
 	constructor(props: PadProps) {
 		super(props);
+		this.audio = new AudioManager;
 		this.state = {
 			pressedButtons: [],
 			buttonProperties: this.generateDefaultButtons()
@@ -23,6 +30,10 @@ class Pad extends React.Component<PadProps, PadState> {
 	 */
 	addPressed(key: string): void {
 		this.setState({ pressedButtons: [...this.state.pressedButtons, key] });
+		const btn = this.state.buttonProperties.flat().find(b => b.code === key);
+		if (!btn || !btn.sound || !this.audio.sounds.has(btn.sound))
+			return;
+		this.audio.playSound(btn.sound);
 	}
 
 	/**

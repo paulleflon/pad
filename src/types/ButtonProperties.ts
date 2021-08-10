@@ -26,6 +26,10 @@ interface ButtonProperties {
 	 * The position of this button on the Pad.
 	 */
 	position: number[];
+	/**
+	 * The name of the audio this button plays.
+	 */
+	sound?: string;
 }
 
 export default ButtonProperties;
