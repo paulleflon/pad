@@ -2,6 +2,19 @@
 	"name": "pad",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": ".",
+	"main": "build/electron/main.js",
+	"author": "hickatheworld",
+	"description": "Musical pad but on your computer and for free.",
+	"build": {
+		"extends": null,
+		"files": [
+			"build/**/*"
+		],
+		"directories": {
+			"buildResources": "assets"
+		}
+	},
 	"dependencies": {
 		"@types/electron-devtools-installer": "^2.2.0",
 		"@types/node": "^12.20.18",
@@ -20,7 +33,10 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"postinstall": "electron-builder install-app-deps",
+		"electron:dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && tsc -p electron -w\" \"wait-on http://localhost:3000 && tsc -p electron && electron .\"",
+		"electron:build": "npm run  build && tsc -p electron && electron-builder"
 	},
 	"eslintConfig": {
 		"extends": [
