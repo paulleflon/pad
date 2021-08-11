@@ -1,0 +1,45 @@
+.title-bar
+	position: fixed
+	z-index: 1000
+	top: 0
+	left: 0
+	align-items: center
+	flex-direction: row
+	display: flex
+	width: 100%
+	height: 22px
+	background: #333333
+	-webkit-app-region: drag
+	.app-name
+		font: 11pt 'Ubuntu'
+		color: #CCCCCC
+	.action-buttons
+		position: absolute
+		right: 0
+		flex-direction: row
+		display: flex
+		height: 100%
+		-webkit-app-region: none
+		.action-button
+			align-items: center
+			justify-content: center
+			display: flex
+			margin-left: 6px
+			height: 100%
+			padding: 0 5px
+			cursor: pointer
+			span
+				font-size: 14pt
+				color: #AAAAAA
+				user-select: none
+			&:hover
+				background: #666666
+				&#close
+					background: #e64a4a
+					span
+						color: #FFFFFF
+			&:active
+				span
+					color: #FFFFFF
+				&#close
+					background: #b93333

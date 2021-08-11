@@ -2,10 +2,25 @@
 	"name": "pad",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": ".",
+	"main": "build/electron/main.js",
+	"author": "hickatheworld",
+	"description": "Musical pad but on your computer and for free.",
+	"build": {
+		"extends": null,
+		"files": [
+			"build/**/*"
+		],
+		"directories": {
+			"buildResources": "assets"
+		}
+	},
 	"dependencies": {
 		"@types/node": "^12.20.18",
 		"@types/react": "^17.0.15",
 		"@types/react-dom": "^17.0.9",
+		"electron-is-dev": "^2.0.0",
+		"electron-reload": "^2.0.0-alpha.1",
 		"node-sass": "^6.0.1",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
@@ -16,7 +31,10 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"postinstall": "electron-builder install-app-deps",
+		"electron:dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && tsc -p electron -w\" \"wait-on http://localhost:3000 && tsc -p electron && electron .\"",
+		"electron:build": "npm run  build && tsc -p electron && electron-builder"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -39,7 +57,12 @@
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^4.29.0",
 		"@typescript-eslint/parser": "^4.29.0",
+		"concurrently": "^6.2.1",
+		"cross-env": "^7.0.3",
+		"electron": "^13.1.9",
+		"electron-builder": "^22.11.7",
 		"eslint": "^7.32.0",
-		"eslint-plugin-react": "^7.24.0"
+		"eslint-plugin-react": "^7.24.0",
+		"wait-on": "^6.0.0"
 	}
 }
