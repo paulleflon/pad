@@ -1,5 +1,4 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import * as isDev from 'electron-is-dev';
 import * as path from 'path';
 
@@ -28,10 +27,6 @@ function createWindow() {
 			hardResetMethod: 'exit'
 		});
 	}
-
-	installExtension(REACT_DEVELOPER_TOOLS)
-		.then((name) => console.log(`Added Extension:  ${name}`))
-		.catch((err) => console.log('An error occurred: ', err));
 }
 
 app.on('ready', createWindow);
