@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import * as isDev from 'electron-is-dev';
 import * as path from 'path';
@@ -10,7 +10,8 @@ function createWindow() {
 		width: 1280,
 		height: 720,
 		webPreferences: {
-			nodeIntegration: true
+			nodeIntegration: false,
+			preload: path.join(__dirname, 'preload.js')
 		}
 	});
 
@@ -48,4 +49,19 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
 	if (win === null)
 		createWindow();
+});
+
+ipcMain.on('close', () => {
+	app.quit();
+});
+
+ipcMain.on('window.minimize', () => {
+	win?.minimize();
+});
+
+ipcMain.on('window.toggleMaximized', () => {
+	if (win?.isMaximized())
+		win.unmaximize();
+	else
+		win?.maximize();
 });
