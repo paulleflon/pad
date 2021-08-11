@@ -11,7 +11,8 @@ function createWindow() {
 		webPreferences: {
 			nodeIntegration: false,
 			preload: path.join(__dirname, 'preload.js')
-		}
+		},
+		frame: false
 	});
 	if (isDev)
 		win.loadURL('http://localhost:3000/index.html');

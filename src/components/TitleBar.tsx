@@ -1,6 +1,9 @@
 import React from 'react';
 import '../style/TitleBar.sass';
 
+/**
+ * A custom title bar for desktop.
+ */
 function TitleBar(): React.ReactElement {
 	return (
 		<div className='title-bar'>
