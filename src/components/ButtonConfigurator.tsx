@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import '../style/ButtonConfigurator.sass';
 import ButtonConfiguratorProps from '../types/ButtonConfiguratorProps';
 import ButtonProperties from '../types/ButtonProperties';
@@ -13,13 +13,9 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	 */
 	lastSelectedPos?: number[]
 	/**
-	 * Whether each input has got its event listener.
-	 */
-	listening: Record<string, boolean>;
-	/**
 	 * The event listener for every input of the configurator.
 	 */
-	onChange: (elm: HTMLInputElement) => void;
+	onChange: ChangeEventHandler;
 
 	constructor(props: ButtonConfiguratorProps) {
 		super(props);
@@ -30,15 +26,9 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			idleColor: React.createRef<HTMLInputElement>(),
 			volume: React.createRef<HTMLInputElement>()
 		};
-		this.listening = {
-			audio: false,
-			activeColor: false,
-			label: false,
-			restColor: false,
-			volume: false
-		};
-		this.onChange = (elm: HTMLInputElement) => {
+		this.onChange = (e) => {
 			const changes: Record<string, any> = {}; // eslint-disable-line @typescript-eslint/no-explicit-any
+			const elm = e.target as HTMLInputElement;
 			if (elm.type === 'file' && elm.files[0])
 				changes[elm.name] = elm.files[0].path;
 			else if (elm.type === 'range')
@@ -56,17 +46,6 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	}
 
 	componentDidUpdate(): void {
-		// --Change events registering--
-		// We run this at each update to make sure each ref has had its listener added.
-		for (const [name, ref] of Object.entries(this.#refs)) {
-			if (!ref.current || this.listening[name])
-				continue;
-			this.listening[name] = true;
-			const e = ref.current;
-			ref.current.addEventListener('change', () => this.onChange(e));
-			if (ref.current.type === 'text')
-				ref.current.addEventListener('keyup', () => this.onChange(e));
-		}
 		// --Input values update--
 		// This condition makes it so that the input values will update only if there is a button in the configurator's props,
 		// and if it is the first button to be selected or if this selected button is different from the previous one.
@@ -111,16 +90,16 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 				</div>
 				<div className='button-configurator-subtitle'>Colors</div>
 				<div className='button-configurator-row'>
-					<input type='color' ref={this.#refs.activeColor} name='activeColor' />
+					<input type='color' ref={this.#refs.activeColor} onChange={this.onChange} name='activeColor' />
 					<label htmlFor='activeColor'>Active color</label>
-					<input type='color' ref={this.#refs.idleColor} name='idleColor' />
+					<input type='color' ref={this.#refs.idleColor} name='idleColor' onChange={this.onChange} />
 					<label htmlFor='idleColor'>Idle color</label>
 				</div>
 				<div className='button-configurator-subtitle'>Label</div>
-				<input type='text' ref={this.#refs.label} name='label' />
+				<input type='text' ref={this.#refs.label} name='label' onChange={this.onChange} />
 				<div className='button-configurator-subtitle'>Audio</div>
-				<input type='file' ref={this.#refs.audio} name='audio' accept='audio/*' />
-				<input type='range' min='0' max='100' defaultValue='50' ref={this.#refs.volume} name='volume' />
+				<input type='file' ref={this.#refs.audio} name='audio' accept='audio/*' onChange={this.onChange} />
+				<input type='range' min='0' max='100' defaultValue='50' ref={this.#refs.volume} name='volume' onChange={this.onChange} />
 			</div>
 		);
 	}
