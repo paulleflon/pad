@@ -130,7 +130,7 @@ class Pad extends React.Component<PadProps, PadState> {
 		}
 		return (
 			<>
-				<div className='pad'>
+				<div className={`pad ${this.state.selectedButton ? 'selection' : ''}`}>
 					{rows}
 				</div>
 				<ButtonConfigurator
