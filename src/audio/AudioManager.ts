@@ -30,14 +30,17 @@ export default class AudioManager extends AudioContext {
 	 * Plays a sound.
 	 * @param name The name of the sound to play.
 	 */
-	playSound(name: string): void {
+	playSound(name: string, volume: number): void {
 		if (!this.sounds.has(name))
 			return;
 		// Type assertion required because we know that it is defined with the check, but TypeScript can't understand it.
 		const buffer = this.sounds.get(name) as AudioBuffer;
 		const source = this.createBufferSource();
 		source.buffer = buffer;
-		source.connect(this.destination);
+		const gain = this.createGain();
+		gain.gain.value = volume;
+		source.connect(gain);
+		gain.connect(this.destination);
 		source.start();
 	}
 }

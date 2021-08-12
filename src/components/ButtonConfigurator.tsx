@@ -27,18 +27,22 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			audio: React.createRef<HTMLInputElement>(),
 			activeColor: React.createRef<HTMLInputElement>(),
 			label: React.createRef<HTMLInputElement>(),
-			idleColor: React.createRef<HTMLInputElement>()
+			idleColor: React.createRef<HTMLInputElement>(),
+			volume: React.createRef<HTMLInputElement>()
 		};
 		this.listening = {
 			audio: false,
 			activeColor: false,
 			label: false,
-			restColor: false
+			restColor: false,
+			volume: false
 		};
 		this.onChange = (elm: HTMLInputElement) => {
 			const changes: Record<string, any> = {}; // eslint-disable-line @typescript-eslint/no-explicit-any
 			if (elm.type === 'file' && elm.files[0])
 				changes[elm.name] = elm.files[0].path;
+			else if (elm.type === 'range')
+				changes[elm.name] = parseInt(elm.value) / 100;
 			else if (elm.name.includes('.')) {
 				const split = elm.name.split('.');
 				changes[split[0]] = {};
@@ -81,7 +85,11 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 				const prop = this.props.button[name as keyof ButtonProperties];
 				if (!ref.current || !prop)
 					continue;
-				ref.current.value = prop.toString();
+				if (ref.current.type === 'range')
+					ref.current.value = ((prop as number) * 100).toString();
+				else
+					ref.current.value = prop.toString();
+
 			}
 			this.lastSelectedPos = this.props.button.position;
 		}
@@ -112,6 +120,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 				<input type='text' ref={this.#refs.label} name='label' />
 				<div className='button-configurator-subtitle'>Audio</div>
 				<input type='file' ref={this.#refs.audio} name='audio' accept='audio/*' />
+				<input type='range' min='0' max='100' defaultValue='50' ref={this.#refs.volume} name='volume' />
 			</div>
 		);
 	}

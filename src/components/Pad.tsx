@@ -33,7 +33,7 @@ class Pad extends React.Component<PadProps, PadState> {
 		const btn = this.state.buttonProperties.flat().find(b => b.code === key);
 		if (!btn || !btn.audio || !this.audio.sounds.has(btn.audio))
 			return;
-		this.audio.playSound(btn.audio);
+		this.audio.playSound(btn.audio, btn.volume);
 	}
 
 	/**
@@ -80,7 +80,8 @@ class Pad extends React.Component<PadProps, PadState> {
 					idleColor: '#aaaaaa',
 					label: '',
 					code: defaultKeyCodes[i][j],
-					position: [i, j]
+					position: [i, j],
+					volume: 0.5
 				};
 				buttons[i].push(btn);
 			}

@@ -30,6 +30,10 @@ interface ButtonProperties {
 	 * The position of this button on the Pad.
 	 */
 	position: number[];
+	/**
+	 * The volume to play this pad's audio to. Decimal value included in [0, 1].
+	 */
+	volume: number;
 }
 
 export default ButtonProperties;
