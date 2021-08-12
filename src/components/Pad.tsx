@@ -21,7 +21,13 @@ class Pad extends React.Component<PadProps, PadState> {
 			pressedButtons: [],
 			buttonProperties: this.generateDefaultButtons()
 		};
-		window.addEventListener('keydown', (e: KeyboardEvent) => e.shiftKey || this.addPressed(e.code));
+		window.addEventListener('keydown', (e: KeyboardEvent) => {
+			if (e.shiftKey)
+				return;
+			if (e.code === 'Escape')
+				this.setState({ selectedButton: undefined });
+			this.addPressed(e.code);
+		});
 		window.addEventListener('keyup', (e: KeyboardEvent) => this.removePressed(e.code));
 	}
 
