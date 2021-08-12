@@ -83,7 +83,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			for (const [name, ref] of Object.entries(this.#refs)) {
 				// The inputs' names are always a field name of ButtonProperties.
 				const prop = this.props.button[name as keyof ButtonProperties];
-				if (!ref.current || !prop)
+				if (!ref.current || !prop || ref.current.type === 'file')
 					continue;
 				if (ref.current.type === 'range')
 					ref.current.value = ((prop as number) * 100).toString();
