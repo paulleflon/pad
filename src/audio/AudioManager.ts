@@ -3,7 +3,7 @@
  */
 export default class AudioManager extends AudioContext {
 	/**
-	 * The sounds loaded in the manager, mapped by their names.
+	 * The sounds loaded in the manager, mapped by their paths.
 	 */
 	sounds: Map<string, AudioBuffer>;
 
@@ -14,14 +14,13 @@ export default class AudioManager extends AudioContext {
 
 	/**
 	 * Loads a sound in the manager.
-	 * @param file The File to load as a sound.
-	 * @param name The name to give to the sound.
+	 * @param file The path to the file.
 	 */
-	async loadSound(file: File, name: string): Promise<void> {
-		const buffer = await file.arrayBuffer();
+	async loadSound(file: string): Promise<void> {
+		const buffer = await window.electron.importAudio(file);
 		return new Promise(resolve => {
 			this.decodeAudioData(buffer, decoded => {
-				this.sounds.set(name, decoded);
+				this.sounds.set(file, decoded);
 				resolve();
 			});
 		});
@@ -31,14 +30,17 @@ export default class AudioManager extends AudioContext {
 	 * Plays a sound.
 	 * @param name The name of the sound to play.
 	 */
-	playSound(name: string): void {
+	playSound(name: string, volume: number): void {
 		if (!this.sounds.has(name))
 			return;
 		// Type assertion required because we know that it is defined with the check, but TypeScript can't understand it.
 		const buffer = this.sounds.get(name) as AudioBuffer;
 		const source = this.createBufferSource();
 		source.buffer = buffer;
-		source.connect(this.destination);
+		const gain = this.createGain();
+		gain.gain.value = volume;
+		source.connect(gain);
+		gain.connect(this.destination);
 		source.start();
 	}
 }
