@@ -53,6 +53,8 @@ class Pad extends React.Component<PadProps, PadState> {
 
 	updateButtonProperties(coos: number[], properties: Partial<ButtonProperties>): void {
 		const updated = { ...this.state.buttonProperties[coos[0]][coos[1]], ...properties };
+		if ('audio' in properties)
+			this.audio.loadSound(properties.audio);
 		const arr = this.state.buttonProperties;
 		arr[coos[0]][coos[1]] = updated;
 		this.setState({ buttonProperties: arr });
