@@ -1,4 +1,5 @@
 import { ipcRenderer, contextBridge } from 'electron';
+import { readFile } from 'fs/promises';
 
 contextBridge.exposeInMainWorld('electron', {
 	/**
@@ -6,6 +7,15 @@ contextBridge.exposeInMainWorld('electron', {
 	 */
 	closeApp(): void {
 		ipcRenderer.send('close');
+	},
+	/**
+	 * Reads the content of a locale audio file and returns it.
+	 * @param path The path to the file.
+	 * @returns The file's data.
+	 */
+	async importAudio(path: string): Promise<ArrayBuffer> {
+		const file = await readFile(path);
+		return file.buffer;
 	},
 	/**
 	 * Minimizes the app's window to tray.

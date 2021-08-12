@@ -7,6 +7,10 @@ interface ButtonProperties {
 	 */
 	activeColor: string;
 	/**
+	 * The path to this button's audio file.
+	 */
+	audio?: string;
+	/**
 	 * The code of the key that triggers this button.
 	 */
 	code: string;
@@ -26,10 +30,6 @@ interface ButtonProperties {
 	 * The position of this button on the Pad.
 	 */
 	position: number[];
-	/**
-	 * The name of the audio this button plays.
-	 */
-	sound?: string;
 }
 
 export default ButtonProperties;

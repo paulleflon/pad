@@ -3,7 +3,7 @@
  */
 export default class AudioManager extends AudioContext {
 	/**
-	 * The sounds loaded in the manager, mapped by their names.
+	 * The sounds loaded in the manager, mapped by their paths.
 	 */
 	sounds: Map<string, AudioBuffer>;
 
@@ -14,14 +14,13 @@ export default class AudioManager extends AudioContext {
 
 	/**
 	 * Loads a sound in the manager.
-	 * @param file The File to load as a sound.
-	 * @param name The name to give to the sound.
+	 * @param file The path to the file.
 	 */
-	async loadSound(file: File, name: string): Promise<void> {
-		const buffer = await file.arrayBuffer();
+	async loadSound(file: string): Promise<void> {
+		const buffer = await window.electron.importAudio(file);
 		return new Promise(resolve => {
 			this.decodeAudioData(buffer, decoded => {
-				this.sounds.set(name, decoded);
+				this.sounds.set(file, decoded);
 				resolve();
 			});
 		});

@@ -10,6 +10,12 @@ declare interface Window {
 		 */
 		closeApp(): void;
 		/**
+		 * Reads the content of a locale audio file.
+		 * @param path The path to the file.
+		 * @returns The ArrayBuffer of the file's data.
+		 */
+		async importAudio(path: string): Promise<ArrayBuffer>;
+		/**
 		 * Minimizes the app's window to tray.
 		 */
 		minimize(): void;
