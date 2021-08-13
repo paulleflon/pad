@@ -33,13 +33,8 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 				changes[elm.name] = elm.files[0].path;
 			else if (elm.type === 'range')
 				changes[elm.name] = parseInt(elm.value) / 100;
-			else if (elm.name.includes('.')) {
-				const split = elm.name.split('.');
-				changes[split[0]] = {};
-				changes[split[0]][split[1]] = elm.value;
-			} else {
+			else
 				changes[elm.name] = elm.value;
-			}
 			if (this.props.updater)
 				this.props.updater(changes);
 		};
