@@ -91,17 +91,21 @@ class Pad extends React.Component<PadProps, PadState> {
 			['KeyZ', 'KeyX', 'KeyC', 'KeyV'],
 		];
 		const buttons: ButtonProperties[][] = [];
+		const colors: string[] = ['#00a2ff', '#51ff3d', '#fa2570', '#b45de3'];
+		let color;
 		for (let i = 0; i < 4; i++) {
 			buttons.push([]);
+			color = i < 2 ? 0 : 2;
 			for (let j = 0; j < 4; j++) {
+				const plus = j < 2 ? 0 : 1;
 				const btn = {
 					activeColor: '#fffc33',
 					flatColors: false,
-					idleColor: '#aaaaaa',
+					idleColor: colors[color + plus],
 					label: '',
 					code: defaultKeyCodes[i][j],
 					position: [i, j],
-					volume: 0.5
+					volume: 1
 				};
 				buttons[i].push(btn);
 			}
