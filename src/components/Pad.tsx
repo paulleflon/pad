@@ -65,7 +65,9 @@ class Pad extends React.Component<PadProps, PadState> {
 			this.audio.loadSound(properties.audio);
 		const arr = this.state.buttonProperties;
 		arr[coos[0]][coos[1]] = updated;
-		this.setState({ buttonProperties: arr });
+		this.setState({ buttonProperties: arr }, () => {
+			localStorage.setItem('buttonProperties', JSON.stringify(this.state.buttonProperties));
+		});
 	}
 
 	generateDefaultButtons(): ButtonProperties[][] {
