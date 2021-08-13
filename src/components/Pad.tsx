@@ -35,6 +35,8 @@ class Pad extends React.Component<PadProps, PadState> {
 	 * Adds a key to the list of pressed keys in the Pad's state.
 	 */
 	addPressed(key: string): void {
+		if (this.state.pressedButtons.includes(key))
+			return;
 		this.setState({ pressedButtons: [...this.state.pressedButtons, key] });
 		const btn = this.state.buttonProperties.flat().find(b => b.code === key);
 		if (!btn || !btn.audio || !this.audio.sounds.has(btn.audio))
