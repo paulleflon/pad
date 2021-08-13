@@ -15,13 +15,16 @@ export default class AudioManager extends AudioContext {
 	/**
 	 * Loads a sound in the manager.
 	 * @param file The path to the file.
+	 * @returns Whether the file has been successfully loaded.
 	 */
-	async loadSound(file: string): Promise<void> {
+	async loadSound(file: string): Promise<boolean> {
 		const buffer = await window.electron.importAudio(file);
+		if (!buffer)
+			return false;
 		return new Promise(resolve => {
 			this.decodeAudioData(buffer, decoded => {
 				this.sounds.set(file, decoded);
-				resolve();
+				resolve(true);
 			});
 		});
 	}

@@ -13,8 +13,13 @@ contextBridge.exposeInMainWorld('electron', {
 	 * @param path The path to the file.
 	 * @returns The file's data.
 	 */
-	async importAudio(path: string): Promise<ArrayBuffer> {
-		const file = await readFile(path);
+	async importAudio(path: string): Promise<ArrayBuffer | false> {
+		let file;
+		try {
+			file = await readFile(path);
+		} catch (err) {
+			return false;
+		}
 		return file.buffer;
 	},
 	/**

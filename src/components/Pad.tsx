@@ -25,7 +25,10 @@ class Pad extends React.Component<PadProps, PadState> {
 				properties.flat().forEach(props => {
 					if (!props.audio)
 						return;
-					this.audio.loadSound(props.audio);
+					this.audio.loadSound(props.audio).then(success => {
+						if (!success)
+							this.updateButtonProperties(props.position, { failing: true });
+					});
 				});
 			} catch (err) {
 				properties = this.generateDefaultButtons();
@@ -77,7 +80,7 @@ class Pad extends React.Component<PadProps, PadState> {
 	updateButtonProperties(coos: number[], properties: Partial<ButtonProperties>): void {
 		const updated = { ...this.state.buttonProperties[coos[0]][coos[1]], ...properties };
 		if ('audio' in properties)
-			this.audio.loadSound(properties.audio);
+			this.audio.loadSound(properties.audio).then(success => this.updateButtonProperties(coos, { failing: !success }));
 		const arr = this.state.buttonProperties;
 		arr[coos[0]][coos[1]] = updated;
 		this.setState({ buttonProperties: arr }, () => {
@@ -136,7 +139,7 @@ class Pad extends React.Component<PadProps, PadState> {
 				cells.push(
 					<PadButton
 						{...props}
-						className={isSelected ? 'selected' : ''}
+						className={(isSelected ? 'selected' : '') + (btn.failing ? ' failing' : '')}
 						key={btn.code}
 					/>
 				);

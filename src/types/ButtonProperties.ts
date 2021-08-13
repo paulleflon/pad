@@ -15,6 +15,10 @@ interface ButtonProperties {
 	 */
 	code: string;
 	/**
+	 * Whether an issue is going on with the button.
+	 */
+	failing?: boolean;
+	/**
 	 * When set to true, the button's colors will not have a slight radial gradient effect.
 	 */
 	flatColors: boolean;
