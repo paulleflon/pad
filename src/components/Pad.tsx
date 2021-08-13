@@ -22,6 +22,11 @@ class Pad extends React.Component<PadProps, PadState> {
 		if (stored) {
 			try {
 				properties = JSON.parse(stored);
+				properties.flat().forEach(props => {
+					if (!props.audio)
+						return;
+					this.audio.loadSound(props.audio);
+				});
 			} catch (err) {
 				properties = this.generateDefaultButtons();
 			}
