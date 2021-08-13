@@ -17,9 +17,27 @@ class Pad extends React.Component<PadProps, PadState> {
 	constructor(props: PadProps) {
 		super(props);
 		this.audio = new AudioManager;
+		const stored = localStorage.getItem('buttonProperties');
+		let properties: ButtonProperties[][];
+		if (stored) {
+			try {
+				properties = JSON.parse(stored);
+				properties.flat().forEach(props => {
+					if (!props.audio)
+						return;
+					this.audio.loadSound(props.audio).then(success => {
+						if (!success)
+							this.updateButtonProperties(props.position, { failing: true });
+					});
+				});
+			} catch (err) {
+				properties = this.generateDefaultButtons();
+			}
+		} else
+			properties = this.generateDefaultButtons();
 		this.state = {
 			pressedButtons: [],
-			buttonProperties: this.generateDefaultButtons()
+			buttonProperties: properties
 		};
 		window.addEventListener('keydown', (e: KeyboardEvent) => {
 			if (e.shiftKey)
@@ -62,10 +80,12 @@ class Pad extends React.Component<PadProps, PadState> {
 	updateButtonProperties(coos: number[], properties: Partial<ButtonProperties>): void {
 		const updated = { ...this.state.buttonProperties[coos[0]][coos[1]], ...properties };
 		if ('audio' in properties)
-			this.audio.loadSound(properties.audio);
+			this.audio.loadSound(properties.audio).then(success => this.updateButtonProperties(coos, { failing: !success }));
 		const arr = this.state.buttonProperties;
 		arr[coos[0]][coos[1]] = updated;
-		this.setState({ buttonProperties: arr });
+		this.setState({ buttonProperties: arr }, () => {
+			localStorage.setItem('buttonProperties', JSON.stringify(this.state.buttonProperties));
+		});
 	}
 
 	generateDefaultButtons(): ButtonProperties[][] {
@@ -79,17 +99,21 @@ class Pad extends React.Component<PadProps, PadState> {
 			['KeyZ', 'KeyX', 'KeyC', 'KeyV'],
 		];
 		const buttons: ButtonProperties[][] = [];
+		const colors: string[] = ['#00a2ff', '#51ff3d', '#fa2570', '#b45de3'];
+		let color;
 		for (let i = 0; i < 4; i++) {
 			buttons.push([]);
+			color = i < 2 ? 0 : 2;
 			for (let j = 0; j < 4; j++) {
+				const plus = j < 2 ? 0 : 1;
 				const btn = {
 					activeColor: '#fffc33',
 					flatColors: false,
-					idleColor: '#aaaaaa',
+					idleColor: colors[color + plus],
 					label: '',
 					code: defaultKeyCodes[i][j],
 					position: [i, j],
-					volume: 0.5
+					volume: 1
 				};
 				buttons[i].push(btn);
 			}
@@ -115,7 +139,7 @@ class Pad extends React.Component<PadProps, PadState> {
 				cells.push(
 					<PadButton
 						{...props}
-						className={isSelected ? 'selected' : ''}
+						className={(isSelected ? 'selected' : '') + (btn.failing ? ' failing' : '')}
 						key={btn.code}
 					/>
 				);
