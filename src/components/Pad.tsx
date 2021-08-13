@@ -17,7 +17,7 @@ class Pad extends React.Component<PadProps, PadState> {
 	constructor(props: PadProps) {
 		super(props);
 		this.audio = new AudioManager;
-		const stored = 0;
+		const stored = localStorage.getItem('buttonProperties');
 		let properties: ButtonProperties[][];
 		if (stored) {
 			try {
