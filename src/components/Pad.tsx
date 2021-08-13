@@ -17,9 +17,19 @@ class Pad extends React.Component<PadProps, PadState> {
 	constructor(props: PadProps) {
 		super(props);
 		this.audio = new AudioManager;
+		const stored = 0;
+		let properties: ButtonProperties[][];
+		if (stored) {
+			try {
+				properties = JSON.parse(stored);
+			} catch (err) {
+				properties = this.generateDefaultButtons();
+			}
+		} else
+			properties = this.generateDefaultButtons();
 		this.state = {
 			pressedButtons: [],
-			buttonProperties: this.generateDefaultButtons()
+			buttonProperties: properties
 		};
 		window.addEventListener('keydown', (e: KeyboardEvent) => {
 			if (e.shiftKey)
