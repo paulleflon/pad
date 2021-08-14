@@ -62,11 +62,8 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 					continue;
 				if (ref.current.type === 'range')
 					ref.current.value = ((prop as number) * 100).toString();
-				else {
-					if (name === 'label')
-						console.log('yup');
+				else
 					ref.current.value = prop.toString();
-				}
 
 			}
 			this.lastSelectedPos = this.props.button.position;
