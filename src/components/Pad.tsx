@@ -146,7 +146,7 @@ class Pad extends React.Component<PadProps, PadState> {
 					/>
 				);
 			}
-			rows.push(<div className='pad-button-row'>{cells}</div>);
+			rows.push(<div className='pad-button-row' key={`row-${i}`}>{cells}</div>);
 		}
 		let updater;
 		if (this.state.selectedButton)
