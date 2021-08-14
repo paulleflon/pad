@@ -1,12 +1,13 @@
 {
 	"name": "pad",
-	"version": "0.1.0-canary.1",
+	"version": "0.1.0-canary.2",
 	"private": true,
 	"homepage": ".",
 	"main": "build/electron/main.js",
 	"author": "hickatheworld",
 	"description": "Musical pad but on your computer and for free.",
 	"build": {
+		"productName": "Pad",
 		"extends": null,
 		"files": [
 			"build/**/*"
@@ -16,7 +17,6 @@
 		},
 		"nsis": {
 			"oneClick": false,
-			"perMachine": true,
 			"allowElevation": true,
 			"allowToChangeInstallationDirectory": true
 		}
