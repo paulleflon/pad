@@ -17,14 +17,6 @@ interface PadButtonProps extends ButtonProperties {
 	 */
 	className?: string;
 	/**
-	 * The function to call when the PadButton starts being pressed.
-	 */
-	onMouseDown: (k: string) => void;
-	/**
-	 * The function to call when the PadButton stops being pressed.
-	 */
-	onMouseUp: (k: string) => void;
-	/**
 	 * The function to call to select this button in the configurator.
 	 */
 	select: (coos: number[]) => void;

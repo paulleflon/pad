@@ -133,8 +133,6 @@ class Pad extends React.Component<PadProps, PadState> {
 					...btn,
 					active: this.state.pressedButtons.includes(btn.code),
 					alt: this.state.pressedButtons.includes('AltRight'),
-					onMouseDown: (k: string) => this.addPressed(k),
-					onMouseUp: (k: string) => this.removePressed(k),
 					select: (coos: number[]) => this.selectButton(coos)
 				};
 				const isSelected = this.state.selectedButton && this.state.selectedButton[0] === i && this.state.selectedButton[1] === j;
