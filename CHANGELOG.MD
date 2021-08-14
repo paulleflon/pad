@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Fixed
  - Fixed ButtonConfigurator `label` input value not updating on selection change when the selected button has no label.
+ - Fixed audio quality drops due to the keydown event triggering twice to a unique keypress. This caused the audio to play twice at the same time, greatly reducing its quality.
+ - Removed React `Warning: Each child in a list should have a unique "key" prop` error. 
 ## [0.1.0-canary.1] - 2021-08-12
 ### Added
  - Properties saving. Pad will no longer reset on every restart.
