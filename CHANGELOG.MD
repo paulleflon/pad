@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+ - Changed action when clicking a button. It will now select it in the configurator instead of triggering its sound.
 ### Fixed
  - Fixed ButtonConfigurator `label` input value not updating on selection change when the selected button has no label.
  - Fixed audio quality drops due to the keydown event triggering twice to a unique keypress. This caused the audio to play twice at the same time, greatly reducing its quality.
