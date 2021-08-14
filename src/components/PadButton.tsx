@@ -6,8 +6,8 @@ import PadButtonProps from '../types/PadButtonProps';
  * A button in a Pad.
  */
 class PadButton extends React.Component<PadButtonProps> {
-	constructor(props: PadButtonProps) {
-		super(props);
+
+	componentDidMount(): void {
 		window.addEventListener('keydown', (e: KeyboardEvent) => {
 			if (e.shiftKey && e.code === this.props.code)
 				this.props.select(this.props.position);
