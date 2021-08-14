@@ -35,12 +35,12 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "react-scripts build",
+		"build": "react-scripts build && tsc -p electron",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"postinstall": "electron-builder install-app-deps",
 		"electron:dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && tsc -p electron -w\" \"wait-on http://localhost:3000 && tsc -p electron && electron .\"",
-		"electron:build": "npm run build && tsc -p electron && electron-builder"
+		"electron:build": "npm run build && electron-builder"
 	},
 	"eslintConfig": {
 		"extends": [
