@@ -13,6 +13,12 @@
 		],
 		"directories": {
 			"buildResources": "assets"
+		},
+		"nsis": {
+			"oneClick": false,
+			"perMachine": true,
+			"allowElevation": true,
+			"allowToChangeInstallationDirectory": true
 		}
 	},
 	"dependencies": {
