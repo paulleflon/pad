@@ -39,12 +39,16 @@ class Pad extends React.Component<PadProps, PadState> {
 			pressedButtons: [],
 			buttonProperties: properties
 		};
+	}
+
+	componentDidMount(): void {
 		window.addEventListener('keydown', (e: KeyboardEvent) => {
 			if (e.shiftKey)
 				return;
 			if (e.code === 'Escape')
 				this.setState({ selectedButton: undefined });
-			this.addPressed(e.code);
+			if (!this.state.pressedButtons.includes(e.code))
+				this.addPressed(e.code);
 		});
 		window.addEventListener('keyup', (e: KeyboardEvent) => this.removePressed(e.code));
 	}
@@ -53,8 +57,6 @@ class Pad extends React.Component<PadProps, PadState> {
 	 * Adds a key to the list of pressed keys in the Pad's state.
 	 */
 	addPressed(key: string): void {
-		if (this.state.pressedButtons.includes(key))
-			return;
 		this.setState({ pressedButtons: [...this.state.pressedButtons, key] });
 		const btn = this.state.buttonProperties.flat().find(b => b.code === key);
 		if (!btn || !btn.audio || !this.audio.sounds.has(btn.audio))
