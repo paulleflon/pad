@@ -16,7 +16,8 @@ class PadButton extends React.Component<PadButtonProps> {
 
 	render(): React.ReactNode {
 		const style = {
-			backgroundColor: this.props.active ? this.props.activeColor : this.props.idleColor
+			backgroundColor: this.props.idleColor,
+			'--activeColor': this.props.activeColor
 		};
 		let label;
 		if (this.props.label)
@@ -25,7 +26,7 @@ class PadButton extends React.Component<PadButtonProps> {
 			label = this.props.code;
 		return (
 			<div
-				className={'pad-button ' + this.props.className}
+				className={'pad-button ' + (this.props.active ? 'active ' : '') + this.props.className}
 				style={style}
 				onMouseDown={() => this.props.select(this.props.position)}
 			>
