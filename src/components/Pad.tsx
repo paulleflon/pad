@@ -109,6 +109,7 @@ class Pad extends React.Component<PadProps, PadState> {
 			for (let j = 0; j < 4; j++) {
 				const plus = j < 2 ? 0 : 1;
 				const btn = {
+					active: false,
 					activeColor: '#fffc33',
 					flatColors: false,
 					idleColor: colors[color + plus],
@@ -131,7 +132,6 @@ class Pad extends React.Component<PadProps, PadState> {
 				const btn = this.state.buttonProperties[i][j];
 				const props: PadButtonProps = {
 					...btn,
-					active: this.state.pressedButtons.includes(btn.code),
 					alt: this.state.pressedButtons.includes('AltRight'),
 					select: (coos: number[]) => this.selectButton(coos)
 				};

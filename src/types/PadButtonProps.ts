@@ -5,10 +5,6 @@ import ButtonProperties from './ButtonProperties';
  */
 interface PadButtonProps extends ButtonProperties {
 	/**
-	 * Whether the PadButton is currently being pressed.
-	 */
-	active: boolean;
-	/**
 	 * Whether the AltRight key is pressed, which displays the code of the PadButton.
 	 */
 	alt: boolean;

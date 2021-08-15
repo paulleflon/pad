@@ -3,6 +3,10 @@
  */
 interface ButtonProperties {
 	/**
+	 * Whether the button is currently playing a sound.
+	 */
+	active: boolean;
+	/**
 	 * The color to display when the button component is active.
 	 */
 	activeColor: string;
