@@ -22,6 +22,12 @@ class Pad extends React.Component<PadProps, PadState> {
 		if (stored) {
 			try {
 				properties = JSON.parse(stored);
+				// This property depends on the runtime. If the app is closed, it must be reset.
+				for (const row of properties) {
+					for (const obj of row) {
+						obj.active = false;
+					}
+				}
 				properties.flat().forEach(props => {
 					if (!props.audio)
 						return;
@@ -61,7 +67,8 @@ class Pad extends React.Component<PadProps, PadState> {
 		const btn = this.state.buttonProperties.flat().find(b => b.code === key);
 		if (!btn || !btn.audio || !this.audio.sounds.has(btn.audio))
 			return;
-		this.audio.playSound(btn.audio, btn.volume);
+		this.updateButtonProperties(btn.position, { active: true });
+		this.audio.playSound(btn.audio, btn.volume, () => this.updateButtonProperties(btn.position, { active: false }));
 	}
 
 	/**
