@@ -6,10 +6,15 @@ export default class AudioManager extends AudioContext {
 	 * The sounds loaded in the manager, mapped by their paths.
 	 */
 	sounds: Map<string, AudioBuffer>;
+	/**
+	 * The currently playing sources, mapped by their paths.
+	 */
+	playing: Map<string, AudioBufferSourceNode>;
 
 	constructor() {
 		super();
 		this.sounds = new Map();
+		this.playing = new Map();
 	}
 
 	/**
@@ -47,6 +52,10 @@ export default class AudioManager extends AudioContext {
 		source.connect(gain);
 		gain.connect(this.destination);
 		source.start();
-		source.addEventListener('ended', end);
+		this.playing.set(name, source);
+		source.addEventListener('ended', () => {
+			this.playing.delete(name);
+			end();
+		});
 	}
 }
