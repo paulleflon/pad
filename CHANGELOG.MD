@@ -30,4 +30,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - 7204c7b Default button properties. Good bye sad gray buttons, hello colorful buttons.
 ## [0.1.0-canary] - 2021-08-12
 ### Added
- - 9675078 A first version of Pad.
+ - 9675078a9c671c0650b07c862b847221199ea1fe A first version of Pad.
