@@ -65,8 +65,11 @@ class Pad extends React.Component<PadProps, PadState> {
 	addPressed(key: string): void {
 		this.setState({ pressedButtons: [...this.state.pressedButtons, key] });
 		const btn = this.state.buttonProperties.flat().find(b => b.code === key);
-		if (!btn || !btn.audio || btn.active || !this.audio.sounds.has(btn.audio))
+		if (!btn || !btn.audio || !this.audio.sounds.has(btn.audio))
 			return;
+		if (btn.active) {
+			return this.audio.playing.get(btn.audio).stop();
+		}
 		this.updateButtonProperties(btn.position, { active: true });
 		this.audio.playSound(btn.audio, btn.volume, () => this.updateButtonProperties(btn.position, { active: false }));
 	}
