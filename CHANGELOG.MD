@@ -5,8 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+ - Added an indicator of the progress of the playing sound of each button.
+ - Added the ability to stop a playing audio simply by pressing the button again.
 ### Changed
  - The active color now stays on display as long as the button's audio is being played, it no longer depends on the user's keypress.
+ - An active button now blinks in its active color instead of staticly displaying it.
+ - A button now can't play its sound simultaneously. It must wait for one instance of the sound to stop before playing a new one.
 ## [0.1.0-canary.2] - 2021-08-14
 ### Changed
  - Changed action when clicking a button. It will now select it in the configurator instead of triggering its sound.
