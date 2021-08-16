@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [0.1.0-canary.3] - 2021-08-16
 ### Added
  - Added an indicator of the progress of the playing sound of each button.
  - Added the ability to stop a playing audio simply by pressing the button again.
