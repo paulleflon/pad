@@ -1,6 +1,7 @@
 import React from 'react';
 import '../style/PadButton.sass';
 import PadButtonProps from '../types/PadButtonProps';
+import ProgressIndicator from './ProgressIndicator';
 
 /**
  * A button in a Pad.
@@ -24,6 +25,10 @@ class PadButton extends React.Component<PadButtonProps> {
 			label = this.props.label;
 		if (this.props.alt)
 			label = this.props.code;
+		const buffer = this.props.audioManager.sounds.get(this.props.audio);
+		let duration;
+		if (buffer)
+			duration = buffer.duration;
 		return (
 			<div
 				className={'pad-button ' + (this.props.active ? 'active ' : '') + this.props.className}
@@ -31,6 +36,7 @@ class PadButton extends React.Component<PadButtonProps> {
 				onMouseDown={() => this.props.select(this.props.position)}
 			>
 				{<div className='pad-button-label'>{label}</div>}
+				<ProgressIndicator duration={duration} active={this.props.active} />
 			</div>
 		);
 	}

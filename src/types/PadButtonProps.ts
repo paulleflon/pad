@@ -1,9 +1,14 @@
+import AudioManager from '../audio/AudioManager';
 import ButtonProperties from './ButtonProperties';
 
 /**
  * Props of a PadButton component.
  */
 interface PadButtonProps extends ButtonProperties {
+	/**
+	 * The AudioManager of the Pad.
+	 */
+	audioManager: AudioManager,
 	/**
 	 * Whether the AltRight key is pressed, which displays the code of the PadButton.
 	 */

@@ -139,6 +139,7 @@ class Pad extends React.Component<PadProps, PadState> {
 				const btn = this.state.buttonProperties[i][j];
 				const props: PadButtonProps = {
 					...btn,
+					audioManager: this.audio,
 					alt: this.state.pressedButtons.includes('AltRight'),
 					select: (coos: number[]) => this.selectButton(coos)
 				};
