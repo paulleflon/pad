@@ -6,10 +6,15 @@ export default class AudioManager extends AudioContext {
 	 * The sounds loaded in the manager, mapped by their paths.
 	 */
 	sounds: Map<string, AudioBuffer>;
+	/**
+	 * The currently playing sources, mapped by their paths.
+	 */
+	playing: Map<string, AudioBufferSourceNode>;
 
 	constructor() {
 		super();
 		this.sounds = new Map();
+		this.playing = new Map();
 	}
 
 	/**
@@ -32,8 +37,10 @@ export default class AudioManager extends AudioContext {
 	/**
 	 * Plays a sound.
 	 * @param name The name of the sound to play.
+	 * @param volume The volume to play the sound with.
+	 * @param end The function to call when the sound ends.
 	 */
-	playSound(name: string, volume: number): void {
+	playSound(name: string, volume: number, end: () => void): void {
 		if (!this.sounds.has(name))
 			return;
 		// Type assertion required because we know that it is defined with the check, but TypeScript can't understand it.
@@ -45,5 +52,10 @@ export default class AudioManager extends AudioContext {
 		source.connect(gain);
 		gain.connect(this.destination);
 		source.start();
+		this.playing.set(name, source);
+		source.addEventListener('ended', () => {
+			this.playing.delete(name);
+			end();
+		});
 	}
 }

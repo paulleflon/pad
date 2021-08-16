@@ -1,3 +1,4 @@
+import AudioManager from '../audio/AudioManager';
 import ButtonProperties from './ButtonProperties';
 
 /**
@@ -5,9 +6,9 @@ import ButtonProperties from './ButtonProperties';
  */
 interface PadButtonProps extends ButtonProperties {
 	/**
-	 * Whether the PadButton is currently being pressed.
+	 * The AudioManager of the Pad.
 	 */
-	active: boolean;
+	audioManager: AudioManager,
 	/**
 	 * Whether the AltRight key is pressed, which displays the code of the PadButton.
 	 */

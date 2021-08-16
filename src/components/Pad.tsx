@@ -22,6 +22,12 @@ class Pad extends React.Component<PadProps, PadState> {
 		if (stored) {
 			try {
 				properties = JSON.parse(stored);
+				// This property depends on the runtime. If the app is closed, it must be reset.
+				for (const row of properties) {
+					for (const obj of row) {
+						obj.active = false;
+					}
+				}
 				properties.flat().forEach(props => {
 					if (!props.audio)
 						return;
@@ -61,7 +67,11 @@ class Pad extends React.Component<PadProps, PadState> {
 		const btn = this.state.buttonProperties.flat().find(b => b.code === key);
 		if (!btn || !btn.audio || !this.audio.sounds.has(btn.audio))
 			return;
-		this.audio.playSound(btn.audio, btn.volume);
+		if (btn.active) {
+			return this.audio.playing.get(btn.audio).stop();
+		}
+		this.updateButtonProperties(btn.position, { active: true });
+		this.audio.playSound(btn.audio, btn.volume, () => this.updateButtonProperties(btn.position, { active: false }));
 	}
 
 	/**
@@ -109,6 +119,7 @@ class Pad extends React.Component<PadProps, PadState> {
 			for (let j = 0; j < 4; j++) {
 				const plus = j < 2 ? 0 : 1;
 				const btn = {
+					active: false,
 					activeColor: '#fffc33',
 					flatColors: false,
 					idleColor: colors[color + plus],
@@ -131,7 +142,7 @@ class Pad extends React.Component<PadProps, PadState> {
 				const btn = this.state.buttonProperties[i][j];
 				const props: PadButtonProps = {
 					...btn,
-					active: this.state.pressedButtons.includes(btn.code),
+					audioManager: this.audio,
 					alt: this.state.pressedButtons.includes('AltRight'),
 					select: (coos: number[]) => this.selectButton(coos)
 				};
