@@ -39,6 +39,12 @@ interface ButtonProperties {
 	 */
 	position: number[];
 	/**
+	 * The type of the button. Can be:
+	 *  - `standard`: A button that simply plays its sound whenever it's pressed.
+	 *  - `toggle`: A button which allows to start & stop a sound. 
+	 */
+	type: 'standard' | 'toggle';
+	/**
 	 * The volume to play this pad's audio to. Decimal value included in [0, 1].
 	 */
 	volume: number;

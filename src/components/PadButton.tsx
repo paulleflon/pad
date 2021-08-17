@@ -36,7 +36,12 @@ class PadButton extends React.Component<PadButtonProps> {
 				onMouseDown={() => this.props.select(this.props.position)}
 			>
 				{<div className='pad-button-label'>{label}</div>}
-				<ProgressIndicator duration={duration} active={this.props.active} />
+				{this.props.type === 'toggle' &&
+					<ProgressIndicator
+						duration={duration}
+						active={this.props.active}
+					/>
+				}
 			</div>
 		);
 	}

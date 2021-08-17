@@ -118,7 +118,7 @@ class Pad extends React.Component<PadProps, PadState> {
 			color = i < 2 ? 0 : 2;
 			for (let j = 0; j < 4; j++) {
 				const plus = j < 2 ? 0 : 1;
-				const btn = {
+				const btn: ButtonProperties = {
 					active: false,
 					activeColor: '#fffc33',
 					flatColors: false,
@@ -126,8 +126,10 @@ class Pad extends React.Component<PadProps, PadState> {
 					label: '',
 					code: defaultKeyCodes[i][j],
 					position: [i, j],
+					type: 'standard',
 					volume: 1
 				};
+				console.log(btn);
 				buttons[i].push(btn);
 			}
 		}
