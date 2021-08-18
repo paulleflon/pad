@@ -32,7 +32,7 @@ class PadButton extends React.Component<PadButtonProps> {
 			duration = buffer.duration;
 		return (
 			<div
-				className={'pad-button ' + (this.props.active ? 'active ' : '') + this.props.className}
+				className={`pad-button type-${this.props.type} ` + (this.props.active ? 'active ' : '') + this.props.className}
 				style={style}
 				onMouseDown={() => this.props.select(this.props.position)}
 			>
