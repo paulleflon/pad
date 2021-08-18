@@ -22,20 +22,20 @@ class Pad extends React.Component<PadProps, PadState> {
 		if (stored) {
 			try {
 				properties = JSON.parse(stored);
-				// This property depends on the runtime. If the app is closed, it must be reset.
 				for (const row of properties) {
-					for (const obj of row) {
-						obj.active = false;
+					for (const i in row) {
+						// We firs make sure all the properties are in the object, in case of update
+						// Then we load the saved properties
+						// And finally force `active` to be false.
+						row[i] = { ...PadButton.defaultProperties, ...row[i], active: false };
+						if (row[i].audio) {
+							this.audio.loadSound(row[i].audio).then(success => {
+								if (!success)
+									this.updateButtonProperties(row[i].position, { failing: true });
+							});
+						}
 					}
 				}
-				properties.flat().forEach(props => {
-					if (!props.audio)
-						return;
-					this.audio.loadSound(props.audio).then(success => {
-						if (!success)
-							this.updateButtonProperties(props.position, { failing: true });
-					});
-				});
 			} catch (err) {
 				properties = this.generateDefaultButtons();
 			}
@@ -45,6 +45,7 @@ class Pad extends React.Component<PadProps, PadState> {
 			pressedButtons: [],
 			buttonProperties: properties
 		};
+		localStorage.setItem('buttonProperties', JSON.stringify(properties));
 	}
 
 	componentDidMount(): void {
@@ -119,17 +120,16 @@ class Pad extends React.Component<PadProps, PadState> {
 			for (let j = 0; j < 4; j++) {
 				const plus = j < 2 ? 0 : 1;
 				const btn: ButtonProperties = {
-					active: false,
-					activeColor: '#fffc33',
-					flatColors: false,
+					active: PadButton.defaultProperties.active,
+					activeColor: PadButton.defaultProperties.activeColor,
+					flatColors: PadButton.defaultProperties.flatColors,
 					idleColor: colors[color + plus],
-					label: '',
+					label: PadButton.defaultProperties.label,
 					code: defaultKeyCodes[i][j],
 					position: [i, j],
-					type: 'standard',
-					volume: 1
+					type: PadButton.defaultProperties.type,
+					volume: PadButton.defaultProperties.volume
 				};
-				console.log(btn);
 				buttons[i].push(btn);
 			}
 		}
