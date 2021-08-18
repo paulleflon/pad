@@ -1,5 +1,6 @@
 import React from 'react';
 import '../style/PadButton.sass';
+import ButtonProperties from '../types/ButtonProperties';
 import PadButtonProps from '../types/PadButtonProps';
 import ProgressIndicator from './ProgressIndicator';
 
@@ -31,20 +32,35 @@ class PadButton extends React.Component<PadButtonProps> {
 			duration = buffer.duration;
 		return (
 			<div
-				className={'pad-button ' + (this.props.active ? 'active ' : '') + this.props.className}
+				className={`pad-button type-${this.props.type} ` + (this.props.active ? 'active ' : '') + this.props.className}
 				style={style}
 				onMouseDown={() => this.props.select(this.props.position)}
 			>
 				{<div className='pad-button-label'>{label}</div>}
-				<ProgressIndicator duration={duration} active={this.props.active} />
+				{this.props.type === 'toggle' &&
+					<ProgressIndicator
+						duration={duration}
+						active={this.props.active}
+					/>
+				}
 			</div>
 		);
 	}
 
-	static defaultProps = {
+	/**
+	 * Default Button properties.
+	 * 
+	 * Some are omitted because they are not required. This is just to provide retro compatibility between updates if they
+	 * add a property, which  would not be taken into account because of localStorage saving.
+	 */
+	static defaultProperties: Partial<ButtonProperties> = {
+		active: false,
 		activeColor: '#fffc33',
 		flatColors: false,
-		idleColor: '#aaaaaa'
+		idleColor: '#aaaaaa',
+		label: '',
+		type: 'standard',
+		volume: 1
 	};
 }
 
