@@ -1,6 +1,6 @@
 {
 	"name": "pad",
-	"version": "0.1.0-canary.3",
+	"version": "0.1.0-canary.4",
 	"homepage": ".",
 	"main": "build/electron/main.js",
 	"author": "hickatheworld",
