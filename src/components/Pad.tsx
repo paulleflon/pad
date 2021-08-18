@@ -68,18 +68,36 @@ class Pad extends React.Component<PadProps, PadState> {
 		const btn = this.state.buttonProperties.flat().find(b => b.code === key);
 		if (!btn || !btn.audio || !this.audio.sounds.has(btn.audio))
 			return;
-		if (btn.active) {
-			return this.audio.playing.get(btn.audio).stop();
+		switch (btn.type) {
+			case 'standard': {
+				this.audio.playSound(btn.audio, btn.volume, () => this.updateButtonProperties(btn.position, { active: false }));
+				break;
+			}
+			case 'toggle': {
+				if (btn.active)
+					return this.audio.playing.get(btn.audio).stop();
+				else
+					this.audio.playSound(btn.audio, btn.volume, () => this.updateButtonProperties(btn.position, { active: false }));
+				break;
+			}
 		}
 		this.updateButtonProperties(btn.position, { active: true });
-		this.audio.playSound(btn.audio, btn.volume, () => this.updateButtonProperties(btn.position, { active: false }));
 	}
 
 	/**
 	 * Removes a key from the list of pressed keys in the Pad's state.
 	 */
 	removePressed(key: string): void {
+		const btn = this.state.buttonProperties.flat().find(btn => btn.code === key);
 		this.setState({ pressedButtons: this.state.pressedButtons.filter(k => k !== key) });
+		if (!btn)
+			return;
+		switch (btn.type) {
+			case 'standard': {
+				this.updateButtonProperties(btn.position, { active: false });
+				break;
+			}
+		}
 	}
 	/**
 	 * Selects a button to configurate.
