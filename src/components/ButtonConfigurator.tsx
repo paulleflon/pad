@@ -7,7 +7,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	/**
 	 * Refs to the inputs of the configurator.
 	 */
-	#refs: Record<string, React.RefObject<HTMLInputElement>>;
+	#refs: Record<string, React.RefObject<any>>;
 	/**
 	 * The coos of the last selected button.
 	 */
@@ -24,6 +24,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 			activeColor: React.createRef<HTMLInputElement>(),
 			label: React.createRef<HTMLInputElement>(),
 			idleColor: React.createRef<HTMLInputElement>(),
+			type: React.createRef<HTMLSelectElement>(),
 			volume: React.createRef<HTMLInputElement>()
 		};
 		this.onChange = (e) => {
@@ -94,6 +95,11 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 				<div className='button-configurator-subtitle'>Audio</div>
 				<input type='file' ref={this.#refs.audio} name='audio' accept='audio/*' onChange={this.onChange} />
 				<input type='range' min='0' max='100' defaultValue='50' ref={this.#refs.volume} name='volume' onChange={this.onChange} />
+				<div className='button-configurator-subtitle'>Type</div>
+				<select ref={this.#refs.type} name='type' onChange={this.onChange}>
+					<option value='standard'>Standard</option>
+					<option value='toggle'>Toggle</option>
+				</select>
 			</div>
 		);
 	}
