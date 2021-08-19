@@ -7,7 +7,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	/**
 	 * Refs to the inputs of the configurator.
 	 */
-	#refs: Record<string, React.RefObject<any>>;
+	#refs: Record<string, React.RefObject<any>>; // eslint-disable-line @typescript-eslint/no-explicit-any
 	/**
 	 * The coos of the last selected button.
 	 */
