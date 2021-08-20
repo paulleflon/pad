@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
  - [`dd20a22`](https://github.com/hickatheworld/pad/commit/dd20a22) Added transparent border to PadButtons, to prevent layout variations when a border indicator (e.g. selection, failing...) is displayed.
  - [`f2dc8de`](https://github.com/hickatheworld/pad/commit/f2dc8de) Added MIT license to installer.
+### Changed
+ - [`e8e3f46`](https://github.com/hickatheworld/pad/commit/e8e3f46) Disabled keyboard events when a text input is being focused. This avoids unwanted behavior when pressing keys for a text.
 ## [0.1.0-canary.4] - 2021-08-18
 ### Added
  - [`60ee503`](https://github.com/hickatheworld/pad/commit/60ee503) Add button types, `standard` and `toggle` at the moment.
