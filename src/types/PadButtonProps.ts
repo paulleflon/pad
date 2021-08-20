@@ -18,6 +18,10 @@ interface PadButtonProps extends ButtonProperties {
 	 */
 	className?: string;
 	/**
+	 * Whether to ignore key events.
+	 */
+	freezed: boolean;
+	/**
 	 * The function to call to select this button in the configurator.
 	 */
 	select: (coos: number[]) => void;

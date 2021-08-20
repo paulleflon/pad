@@ -11,7 +11,7 @@ class PadButton extends React.Component<PadButtonProps> {
 
 	componentDidMount(): void {
 		window.addEventListener('keydown', (e: KeyboardEvent) => {
-			if (e.shiftKey && e.code === this.props.code)
+			if (!this.props.freezed && e.shiftKey && e.code === this.props.code)
 				this.props.select(this.props.position);
 		});
 	}

@@ -51,10 +51,10 @@ class Pad extends React.Component<PadProps, PadState> {
 
 	componentDidMount(): void {
 		window.addEventListener('keydown', (e: KeyboardEvent) => {
-			if (e.shiftKey)
-				return;
 			if (e.code === 'Escape')
-				this.setState({ selectedButton: undefined });
+				this.setState({ selectedButton: undefined, freezeKeys: false });
+			if (e.shiftKey || this.state.freezeKeys)
+				return;
 			if (!this.state.pressedButtons.includes(e.code))
 				this.addPressed(e.code);
 		});
@@ -169,6 +169,7 @@ class Pad extends React.Component<PadProps, PadState> {
 					...btn,
 					audioManager: this.audio,
 					alt: this.state.pressedButtons.includes('AltRight'),
+					freezed: this.state.freezeKeys,
 					select: (coos: number[]) => this.selectButton(coos)
 				};
 				const isSelected = this.state.selectedButton && this.state.selectedButton[0] === i && this.state.selectedButton[1] === j;
