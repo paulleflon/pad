@@ -6,6 +6,10 @@ interface ButtonConfiguratorProps {
 	 */
 	button?: ButtonProperties;
 	/**
+	 * Function to set whether the Pad's key events must be ignored.
+	 */
+	setFreezed: (freezed: boolean) => void;
+	/**
 	 * A function to call with the updated properties of the button. 
 	 */
 	updater?: (p: Partial<ButtonProperties>) => void;

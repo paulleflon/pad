@@ -9,6 +9,10 @@ interface PadState {
 	 */
 	buttonProperties: ButtonProperties[][];
 	/**
+	 * Whether to ignore keyboard events (except Escape), for example when a text input is focused.
+	 */
+	freezed: boolean;
+	/**
 	 * Array of pressed keys' codes.
 	 */
 	pressedButtons: string[];

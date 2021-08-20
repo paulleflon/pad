@@ -91,7 +91,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 					<label htmlFor='idleColor'>Idle color</label>
 				</div>
 				<div className='button-configurator-subtitle'>Label</div>
-				<input type='text' ref={this.#refs.label} name='label' onChange={this.onChange} />
+				<input type='text' ref={this.#refs.label} name='label' onChange={this.onChange} onFocus={this.props.setFreezed.bind(this, true)} onBlur={this.props.setFreezed.bind(this, false)} />
 				<div className='button-configurator-subtitle'>Audio</div>
 				<input type='file' ref={this.#refs.audio} name='audio' accept='audio/*' onChange={this.onChange} />
 				<input type='range' min='0' max='100' defaultValue='50' ref={this.#refs.volume} name='volume' onChange={this.onChange} />
