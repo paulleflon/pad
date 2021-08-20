@@ -8,6 +8,9 @@ import PadState from '../types/PadState';
 import ButtonConfigurator from './ButtonConfigurator';
 import PadButton from './PadButton';
 
+/**
+ * The main Pad component. 
+ */
 class Pad extends React.Component<PadProps, PadState> {
 	/**
 	 * The AudioManager bound to this Pad.
@@ -109,10 +112,18 @@ class Pad extends React.Component<PadProps, PadState> {
 		this.setState({ selectedButton: coos });
 	}
 
+	/**
+	 * Sets the `freezed` property of state.
+	 * @param freezed Whether to freeze the keys.
+	 */
 	setFreezed(freezed: boolean): void {
 		this.setState({ freezed: freezed });
 	}
-
+	/**
+	 * Updates the properties of a button.
+	 * @param coos The position of the button to update the properties.
+	 * @param properties The properties to update.
+	 */
 	updateButtonProperties(coos: number[], properties: Partial<ButtonProperties>): void {
 		const updated = { ...this.state.buttonProperties[coos[0]][coos[1]], ...properties };
 		if ('audio' in properties)
@@ -124,6 +135,9 @@ class Pad extends React.Component<PadProps, PadState> {
 		});
 	}
 
+	/**
+	 * Generates a 2-dimensional array of default ButtonProperties.
+	 */
 	generateDefaultButtons(): ButtonProperties[][] {
 		/**
 		 * Default key codes for PadButtons in a 4x4 Pad.

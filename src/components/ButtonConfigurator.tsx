@@ -3,6 +3,9 @@ import '../style/ButtonConfigurator.sass';
 import ButtonConfiguratorProps from '../types/ButtonConfiguratorProps';
 import ButtonProperties from '../types/ButtonProperties';
 
+/**
+ * A component containing all inputs to edit a button's properties.
+ */
 class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	/**
 	 * Refs to the inputs of the configurator.
