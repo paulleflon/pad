@@ -109,6 +109,10 @@ class Pad extends React.Component<PadProps, PadState> {
 		this.setState({ selectedButton: coos });
 	}
 
+	setFreezed(freezed: boolean): void {
+		this.setState({ freezeKeys: freezed });
+	}
+
 	updateButtonProperties(coos: number[], properties: Partial<ButtonProperties>): void {
 		const updated = { ...this.state.buttonProperties[coos[0]][coos[1]], ...properties };
 		if ('audio' in properties)
@@ -194,6 +198,7 @@ class Pad extends React.Component<PadProps, PadState> {
 				<ButtonConfigurator
 					updater={updater}
 					button={button}
+					setFreezed={(freezed: boolean) => this.setFreezed(freezed)}
 				/>
 			</>
 		);
