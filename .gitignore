@@ -14,3 +14,5 @@ yarn-error.log*
 
 build
 dist
+
+assets/release-notes.md
