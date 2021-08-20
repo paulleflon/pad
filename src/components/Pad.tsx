@@ -45,7 +45,7 @@ class Pad extends React.Component<PadProps, PadState> {
 		} else
 			properties = this.generateDefaultButtons();
 		this.state = {
-			freezed: false,
+			frozen: false,
 			pressedButtons: [],
 			buttonProperties: properties
 		};
@@ -55,8 +55,8 @@ class Pad extends React.Component<PadProps, PadState> {
 	componentDidMount(): void {
 		window.addEventListener('keydown', (e: KeyboardEvent) => {
 			if (e.code === 'Escape')
-				this.setState({ selectedButton: undefined, freezed: false });
-			if (e.shiftKey || this.state.freezed)
+				this.setState({ selectedButton: undefined, frozen: false });
+			if (e.shiftKey || this.state.frozen)
 				return;
 			if (!this.state.pressedButtons.includes(e.code))
 				this.addPressed(e.code);
@@ -113,11 +113,11 @@ class Pad extends React.Component<PadProps, PadState> {
 	}
 
 	/**
-	 * Sets the `freezed` property of state.
-	 * @param freezed Whether to freeze the keys.
+	 * Sets the `frozen` property of state.
+	 * @param frozen Whether to freeze the keys.
 	 */
-	setFreezed(freezed: boolean): void {
-		this.setState({ freezed: freezed });
+	setFrozen(frozen: boolean): void {
+		this.setState({ frozen: frozen });
 	}
 	/**
 	 * Updates the properties of a button.
@@ -183,7 +183,7 @@ class Pad extends React.Component<PadProps, PadState> {
 					...btn,
 					audioManager: this.audio,
 					alt: this.state.pressedButtons.includes('AltRight'),
-					freezed: this.state.freezed,
+					frozen: this.state.frozen,
 					select: (coos: number[]) => this.selectButton(coos)
 				};
 				const isSelected = this.state.selectedButton && this.state.selectedButton[0] === i && this.state.selectedButton[1] === j;
@@ -213,7 +213,7 @@ class Pad extends React.Component<PadProps, PadState> {
 				<ButtonConfigurator
 					updater={updater}
 					button={button}
-					setFreezed={(freezed: boolean) => this.setFreezed(freezed)}
+					setFrozen={(frozen: boolean) => this.setFrozen(frozen)}
 				/>
 			</>
 		);

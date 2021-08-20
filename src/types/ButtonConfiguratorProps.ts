@@ -8,7 +8,7 @@ interface ButtonConfiguratorProps {
 	/**
 	 * Function to set whether the Pad's key events must be ignored.
 	 */
-	setFreezed: (freezed: boolean) => void;
+	setFrozen: (frozen: boolean) => void;
 	/**
 	 * A function to call with the updated properties of the button. 
 	 */

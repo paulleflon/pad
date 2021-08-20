@@ -20,7 +20,7 @@ interface PadButtonProps extends ButtonProperties {
 	/**
 	 * Whether to ignore key events.
 	 */
-	freezed: boolean;
+	frozen: boolean;
 	/**
 	 * The function to call to select this button in the configurator.
 	 */
