@@ -42,6 +42,7 @@ class Pad extends React.Component<PadProps, PadState> {
 		} else
 			properties = this.generateDefaultButtons();
 		this.state = {
+			freezeKeys: false,
 			pressedButtons: [],
 			buttonProperties: properties
 		};
