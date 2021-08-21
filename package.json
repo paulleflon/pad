@@ -36,8 +36,7 @@
 		"eject": "react-scripts eject",
 		"postinstall": "electron-builder install-app-deps",
 		"electron:dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && tsc -p electron -w\" \"wait-on http://localhost:3000 && tsc -p electron && electron .\"",
-		"electron:build": "npm run build && electron-builder",
-		"release": "node release.js && npm run build && electron-builder -p always"
+		"electron:build": "npm run build && electron-builder"
 	},
 	"eslintConfig": {
 		"extends": [
