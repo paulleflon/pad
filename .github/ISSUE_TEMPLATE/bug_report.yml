@@ -7,7 +7,6 @@ body:
     attributes:
       value: |
         **This form is for *Bug Reports* only, not Feature Request!**
-        
         **If you know how to fix this and want to do it yourself, please file a Pull Request instead!**
 - type: checkboxes
   attributes:

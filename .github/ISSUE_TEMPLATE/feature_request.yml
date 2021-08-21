@@ -9,7 +9,6 @@ body:
     attributes:
       value: |
         **This form is for *Feature Requests* only, not Bug Reports!**
-        
         **If you know how to implement this and want to do it yourself, please file a Pull Request instead!**
   - type: checkboxes
   attributes:
