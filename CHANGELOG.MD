@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [0.1.0] - 2021-08-27
 ### Added
  - [`dd20a22`](https://github.com/hickatheworld/pad/commit/dd20a22) Added transparent border to PadButtons, to prevent layout variations when a border indicator (e.g. selection, failing...) is displayed.
  - [`f2dc8de`](https://github.com/hickatheworld/pad/commit/f2dc8de) Added MIT license to installer.
