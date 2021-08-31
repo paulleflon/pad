@@ -75,11 +75,6 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 	}
 
 	render(): React.ReactNode {
-		// if (!this.props.button) {
-		// 	return (
-		// 		<div className='button-configurator idle'></div>
-		// 	);
-		// }
 		let btnName;
 		if (this.props.button)
 			btnName = `${this.props.button.position[0] + 1}:${this.props.button.position[1] + 1}`;
