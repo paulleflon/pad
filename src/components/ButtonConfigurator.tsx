@@ -83,6 +83,7 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 		let btnName;
 		if (this.props.button)
 			btnName = `${this.props.button.position[0] + 1}:${this.props.button.position[1] + 1}`;
+		const disabled = !this.props.button;
 		return (
 			<div className={`button-configurator ${this.props.button ? 'active' : 'idle'}`}>
 				<div className='button-configurator-title'>
@@ -90,18 +91,18 @@ class ButtonConfigurator extends React.Component<ButtonConfiguratorProps> {
 				</div>
 				<div className='button-configurator-subtitle'>Colors</div>
 				<div className='button-configurator-row'>
-					<input type='color' ref={this.#refs.activeColor} onChange={this.onChange} name='activeColor' />
+					<input type='color' ref={this.#refs.activeColor} disabled={disabled} onChange={this.onChange} name='activeColor' />
 					<label htmlFor='activeColor'>Active color</label>
-					<input type='color' ref={this.#refs.idleColor} name='idleColor' onChange={this.onChange} />
+					<input type='color' ref={this.#refs.idleColor} disabled={disabled} name='idleColor' onChange={this.onChange} />
 					<label htmlFor='idleColor'>Idle color</label>
 				</div>
 				<div className='button-configurator-subtitle'>Label</div>
-				<input type='text' ref={this.#refs.label} name='label' onChange={this.onChange} onFocus={this.props.setFrozen.bind(this, true)} onBlur={this.props.setFrozen.bind(this, false)} />
+				<input type='text' ref={this.#refs.label} disabled={disabled} name='label' onChange={this.onChange} onFocus={this.props.setFrozen.bind(this, true)} onBlur={this.props.setFrozen.bind(this, false)} />
 				<div className='button-configurator-subtitle'>Audio</div>
-				<input type='file' ref={this.#refs.audio} name='audio' accept='audio/*' onChange={this.onChange} />
-				<input type='range' min='0' max='100' defaultValue='50' ref={this.#refs.volume} name='volume' onChange={this.onChange} />
+				<input type='file' ref={this.#refs.audio} disabled={disabled} name='audio' accept='audio/*' onChange={this.onChange} />
+				<input type='range' min='0' max='100' defaultValue='50' ref={this.#refs.volume} disabled={disabled} name='volume' onChange={this.onChange} />
 				<div className='button-configurator-subtitle'>Type</div>
-				<select ref={this.#refs.type} name='type' onChange={this.onChange}>
+				<select ref={this.#refs.type} disabled={disabled} name='type' onChange={this.onChange}>
 					<option value='standard'>Standard</option>
 					<option value='toggle'>Toggle</option>
 				</select>
