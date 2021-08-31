@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## Fixed
+ - [`64b4b7a`](https://github.com/hickatheworld/pad/commit/64b4b7a4) Fixed layout glitching when pressing tab while the button configurator is hidden, causing inputs supposed to be disabled to focus.
 ## [0.1.0] - 2021-08-27
 ### Added
  - [`dd20a22`](https://github.com/hickatheworld/pad/commit/dd20a22) Added transparent border to PadButtons, to prevent layout variations when a border indicator (e.g. selection, failing...) is displayed.
