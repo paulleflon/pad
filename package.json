@@ -1,6 +1,6 @@
 {
 	"name": "pad",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"homepage": ".",
 	"main": "build/electron/main.js",
 	"author": "hickatheworld",
